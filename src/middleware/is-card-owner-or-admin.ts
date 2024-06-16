@@ -10,10 +10,10 @@ const _isCardOwnerOrAdmin: RequestHandler = async (req, _, next) => {
     if (card.userId === userId || req.payload?.isAdmin) {
         // console.log(card.userId, userId, req.payload?.isAdmin);
         return next();
-        
+
     }
 
-    else next(new BizCardsError(403, "Only the card owner or admin is allowed")) 
+    else next(new BizCardsError(403, "Only the card owner or admin is allowed"))
     // console.log(card.userId, userId);
 };
 

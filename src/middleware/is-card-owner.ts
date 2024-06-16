@@ -10,10 +10,10 @@ const _isCardOwner: RequestHandler = async (req, _, next) => {
     if (card.userId === userId) {
         // console.log(card.userId, userId);
         return next();
-        
+
     }
 
-    else next(new BizCardsError(403, "Only the card owner is allowed")) 
+    else next(new BizCardsError(403, "Only the card owner is allowed"))
     // console.log(card.userId, userId);
 };
 

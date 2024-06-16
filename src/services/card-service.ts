@@ -1,7 +1,6 @@
 import _ from "underscore";
-import { ICardInput, IIsBusiness } from "../@types/@types";
+import { ICardInput } from "../@types/@types";
 import Card from "../db/models/card-model";
-import { Logger } from "../logs/logger";
 
 const generateBizNumber = async () => {
     //generate random bizNumber:
@@ -40,16 +39,6 @@ export const cardService = {
     updateCard: async (data: ICardInput, userId: string) => {
         return Card.updateOne({ userId: userId }, data);
     },
-    //update's Tzofiya
-
-    // updateCard: async (id: string, data: ICardInput, userId: string) => {
-    //     const card = await Card.findOneAndUpdate({ _id: id, userId: userId }, data, { new: true });
-    //     if (!card) throw new Error("Card not found or user unauthorized to update this card");
-    //     return card;
-    // },
-
-    //like a card
-    // likeCard: async (userId: string) => Card.find({ likes: userId }),
 
 
     toggleFavorite: async (userId: string, cardId: string) => {
