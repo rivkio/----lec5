@@ -1,9 +1,5 @@
 import exp from "constants";
 
-export type Cat = {
-    name: string
-};
-
 export type IName = {
     first: string;
     middle?: string;
@@ -50,23 +46,26 @@ export type IJWTPayload = {
     isBusiness: boolean
 };
 
-export type ICardInput = {
-    title: string;
+export type IProductInput = {
+    productName: string;
     subtitle: string;
-    description: string;
-    phone: string;
-    email: string;
+    productDescription: string;
+    price: number;
+    color: string;
+    sizes: number[];
+    model: string;
+    ages: number[];
     web: string;
     image: IImage;
-    address: IAddress
+    category: "boys" | "girls";
 };
 
-export type ICard = ICardInput & {
+export type IProduct = IProductInput & {
     _id: string,
     bizNumber: number,
     createdAt: Date,
     likes: string[],
-    favorites: string[],
+    ShoppingCart: string[],
     userId: string,
 };
 

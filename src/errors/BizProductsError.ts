@@ -1,4 +1,4 @@
-class BizCardsError {
+class BizProductsError {
     status: number;
     message: string;
 
@@ -8,4 +8,4 @@ class BizCardsError {
     }
 }
 
-export default BizCardsError;
+export default BizProductsError;

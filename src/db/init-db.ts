@@ -1,9 +1,9 @@
 import { IUser } from "../@types/@types";
 import { Logger } from "../logs/logger";
-import { cardService } from "../services/card-service";
+import { productService } from "../services/product-service";
 import { usersService } from "../services/users-service";
-import { cards, users } from "./initial-data";
-import Card from "./models/card-model";
+import { products, users } from "./initial-data";
+import Product from "./models/product-model";
 import User from "./models/user-model";
 
 const initDB = async () => {
@@ -22,19 +22,19 @@ const initDB = async () => {
             }
         }
 
-        const cardsCount = await Card.countDocuments();
-        if (cardsCount > 3) return;
+        const productsCount = await Product.countDocuments();
+        if (productsCount > 3) return;
 
         const user = await User.findOne();
         const userId = user._id.toString();
 
-        for (let c of cards) {
+        for (let p of products) {
 
-            const existingCard = await Card.findOne({ title: c.title });
-            if (!existingCard) {
+            const existingProduct = await Product.findOne({ productName: p.productName });
+            if (!existingProduct) {
 
-                const savedCard = await cardService.createCard(c, userId);
-                Logger.verbose(savedCard);
+                const savedProduct = await productService.createProduct(p, userId);
+                Logger.verbose(savedProduct);
             }
         }
 

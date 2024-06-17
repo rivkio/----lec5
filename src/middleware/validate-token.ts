@@ -1,6 +1,7 @@
 import { RequestHandler, Request } from "express";
-import BizCardsError from "../errors/BizCardsError";
+import BizProductsError from "../errors/BizProductsError";
 import { authService } from "../services/auth-service";
+
 
 const extractToken = (req: Request) => {
     const authHeader = req.header("x-auth-token");
@@ -9,7 +10,7 @@ const extractToken = (req: Request) => {
         return authHeader;
     }
 
-    throw new BizCardsError(400, "x-auth-token header is missing");
+    throw new BizProductsError(400, "x-auth-token header is missing");
 };
 
 const validateToken: RequestHandler = (req, _, next) => {

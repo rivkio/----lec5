@@ -2,14 +2,15 @@ import { ValidationError } from 'joi';
 import { ErrorRequestHandler } from "express";
 import { MongoServerError } from "mongodb";
 import { CastError } from "mongoose";
-import BizCardsError from "../errors/BizCardsError";
+import BizProductsError from '../errors/BizProductsError';
 import { error } from 'console';
+
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     console.error(err)
 
     //my error
-    if (err instanceof BizCardsError) {
+    if (err instanceof BizProductsError) {
         return res.status(err.status).json(err);
     }
 
@@ -19,7 +20,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
             value: err.keyValue,
         });
     }
-    
+
     //Invalid object ID:
     if (err && err.name && err.name == "CastError" && err.path && err.value) {
         return res
