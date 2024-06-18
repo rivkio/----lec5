@@ -6,7 +6,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "analyze": "tsx src/runAnalysis.ts"
   },
   "keywords": [],
   "author": "",

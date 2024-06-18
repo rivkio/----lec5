@@ -71,5 +71,16 @@ export type IProduct = IProductInput & {
 
 export type IIsBusiness = {
     isBusiness: boolean
-};    
+};
+
+
+export type IOrder = {
+    orderNumber: string;
+    orderDate: Date;
+    orderItems: {
+        product: string;
+        quantity: number;
+    }[];
+    orderTotal: number;
+};
 

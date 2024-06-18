@@ -7,6 +7,7 @@ import errorHandler from "./middleware/error-handler";
 import morgan from "morgan";
 import { productRouter } from "./routes/products";
 import cors from "cors";
+import { calculateTotalProductsPurchased } from "./services/orderAnalysis";
 configDevEnv();
 connect();
 
@@ -15,7 +16,7 @@ console.log(process.env.JWT_SECRET);
 //middleware chain
 app.use(json());
 app.use(morgan("dev"));
-app.use(cors({ origin: "*"}));
+app.use(cors({ origin: "*" }));
 
 //http://localhost:8080/api/v1/users
 app.use("/api/v1/users", usersRouter);
@@ -28,5 +29,7 @@ app.use(notFound);
 app.listen(8080, () => {
     console.log("Server is running on http://localhost:8080");
     console.log(`App is running in ${process.env.NODE_ENV} mode`);
+    // calculateTotalProductsPurchased();
+
 });
 
