@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { orderService } from "../services/order-service";
 import { validateToken } from "../middleware/validate-token";
+import { isAgeValid } from "../middleware/is-age";
 
 const router = Router();
 
 
-router.post("/", validateToken, async (req, res, next) => {
+router.post("/", ...isAgeValid, async (req, res, next) => {
     try {
         const userId = req.payload._id;
         const products = req.body.products;

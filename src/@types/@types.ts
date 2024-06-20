@@ -86,6 +86,7 @@ export type IIsBusiness = {
 export type IOrderProduct = {
     productId: string;
     quantity: number;
+    age: number;
 };
 
 export type IOrder = {

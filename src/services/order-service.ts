@@ -5,14 +5,23 @@ import Product from "../db/models/product-model";
 
 
 export const orderService = {
-
-    //create new order
+    // Create new order
     createOrder: async (userId: string, products: IOrderProduct[]) => {
         try {
             const orderProducts = await Promise.all(products.map(async product => {
                 const productDetails = await Product.findById(product.productId);
                 if (!productDetails) throw new Error("Product not found");
                 if (productDetails.quantity < product.quantity) throw new Error("Not enough stock");
+
+                // Check if selected age is valid for the product
+            //  const selectedAge = productDetails.ages.find(age => age === product.age);
+            //     if (!selectedAge) throw new Error("Invalid age selected");
+
+                const selectedAge = product.age;
+                // console.log(productDetails.ages)
+                // if (!productDetails.ages.includes(selectedAge)) {
+                //     throw new Error(`Selected age ${selectedAge} is not valid for product ${productDetails.productName}`);
+                // }
 
                 // Update product stock
                 productDetails.quantity -= product.quantity;
@@ -25,14 +34,17 @@ export const orderService = {
                     barcode: productDetails.barcode,
                     quantity: product.quantity,
                     price: productDetails.price,
+                    age: selectedAge,
                 };
             }));
 
             // Calculate totalAmount
             const totalAmount = orderProducts.reduce((acc, product) => acc + (product.quantity * product.price), 0);
 
+            // Generate unique order number
             const orderNumber = uuidv4();
 
+            // Create new order document
             const order = new Order({
                 orderNumber,
                 userId,
