@@ -2,6 +2,7 @@ import { Router } from "express";
 import { orderService } from "../services/order-service";
 import { validateToken } from "../middleware/validate-token";
 import { isAgeValid } from "../middleware/is-age";
+import { isAdmin } from "../middleware/is-admin";
 
 const router = Router();
 
@@ -39,5 +40,17 @@ router.get("/user/:userId", validateToken, async (req, res, next) => {
         next(e);
     }
 });
+
+
+router.get("/", ...isAdmin, async (_, res, next) => {
+    try {
+        const { orders, count } = await orderService.getAllOrders();
+        const response = { AmountsOrders: count, orders }
+        res.json(response);
+    } catch (e) {
+        next(e);
+    }
+});
+
 
 export { router as ordersRouter}

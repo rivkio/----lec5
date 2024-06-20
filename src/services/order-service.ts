@@ -69,7 +69,15 @@ export const orderService = {
     //get order by user
     getOrdersByUser: async (userId: string) => {
         return Order.find({ userId }).populate("products.productId");
-    }
+    },
+
+
+    //get all orders
+    getAllOrders: async () => {
+        const orders = await Order.find().populate("products.productId");
+        const count = await Order.countDocuments();
+        return { orders: orders.map(order => order.toObject()), count };
+    },
 };
 
 

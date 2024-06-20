@@ -56,6 +56,7 @@ export type IProductInput = {
     web: string;
     image: IImage;
     category: "boys" | "girls";
+    quantity: number;
 };
 
 export type IProduct = IProductInput & {
