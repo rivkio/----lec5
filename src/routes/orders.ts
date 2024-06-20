@@ -7,7 +7,7 @@ const router = Router();
 
 router.post("/", validateToken, async (req, res, next) => {
     try {
-        const userId = req.body.userId;
+        const userId = req.payload._id;
         const products = req.body.products;
 
         const order = await orderService.createOrder(userId, products);

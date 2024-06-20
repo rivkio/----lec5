@@ -60,7 +60,7 @@ export type IProductInput = {
 
 export type IProduct = IProductInput & {
     productId: string,
-    barCode: number,
+    barcode: number,
     createdAt: Date,
     ShoppingCart: string[],
     quantity: number,
@@ -84,7 +84,6 @@ export type IIsBusiness = {
 // };
 
 export type IOrderProduct = {
-    productName: string;
     productId: string;
     quantity: number;
 };
@@ -95,5 +94,6 @@ export type IOrder = {
     totalAmount: number;
     status: string;
     createdAt: Date;
+    orderNumber: string;
 };
 

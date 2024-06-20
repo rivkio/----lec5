@@ -15,7 +15,7 @@ const productSchema = new Schema<IProduct>({
     image: { type: imageSchema, required: true },
     category: { type: String, required: true, enum: ["boys", "girls"] },
     
-    barCode: { type: Number, required: true, min: 1_000_000, max: 9_999_999 },
+    barcode: { type: Number, required: true, min: 1_000_000, max: 9_999_999 },
     createdAt: { type: Date, required: false, default: new Date() },
     ShoppingCart: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     quantity: { type: Number, required: true },
