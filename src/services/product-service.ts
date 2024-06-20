@@ -20,7 +20,7 @@ export const productService = {
         //assign user id to the product:
         product.userId = userId;
         //generate biz number to the product:
-        product.bizNumber = await generateBizNumber();
+        product.barCode = await generateBizNumber();
 
         return product.save();
     },

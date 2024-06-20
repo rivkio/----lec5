@@ -1,5 +1,3 @@
-import exp from "constants";
-
 export type IName = {
     first: string;
     middle?: string;
@@ -61,11 +59,12 @@ export type IProductInput = {
 };
 
 export type IProduct = IProductInput & {
-    _id: string,
-    bizNumber: number,
+    productId: string,
+    barCode: number,
     createdAt: Date,
-    likes: string[],
     ShoppingCart: string[],
+    quantity: number,
+    sold: number,
     userId: string,
 };
 
@@ -74,13 +73,27 @@ export type IIsBusiness = {
 };
 
 
+// export type IOrder = {
+//     orderNumber: string;
+//     orderDate: Date;
+//     orderItems: {
+//         product: string;
+//         quantity: number;
+//     }[];
+//     orderTotal: number;
+// };
+
+export type IOrderProduct = {
+    productName: string;
+    productId: string;
+    quantity: number;
+};
+
 export type IOrder = {
-    orderNumber: string;
-    orderDate: Date;
-    orderItems: {
-        product: string;
-        quantity: number;
-    }[];
-    orderTotal: number;
+    userId: string;
+    products: IOrderProduct[];
+    totalAmount: number;
+    status: string;
+    createdAt: Date;
 };
 

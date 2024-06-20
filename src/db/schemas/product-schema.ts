@@ -1,6 +1,5 @@
 import { Schema } from "mongoose";
 import { IProduct } from "../../@types/@types";
-import addressSchema from "./address-schema";
 import imageSchema from "./image-schema";
 
 const productSchema = new Schema<IProduct>({
@@ -15,18 +14,14 @@ const productSchema = new Schema<IProduct>({
     web: { type: String, required: false, minlength: 14, maxlength: 100 },
     image: { type: imageSchema, required: true },
     category: { type: String, required: true, enum: ["boys", "girls"] },
-
-    likes: [
-        {
-            type: String,
-        },
-    ],
+    
+    barCode: { type: Number, required: true, min: 1_000_000, max: 9_999_999 },
     createdAt: { type: Date, required: false, default: new Date() },
-    userId: { type: String, required: true },
-    bizNumber: { type: Number, required: true, min: 1_000_000, max: 9_999_999 },
-
-
     ShoppingCart: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    quantity: { type: Number, required: true },
+    sold: { type: Number, default: 0 },
+    userId: { type: String, required: true },
+
 });
 
 export default productSchema;

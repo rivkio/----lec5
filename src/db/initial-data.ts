@@ -76,6 +76,7 @@ const products = [
             alt: "Floral Summer Dress",
         },
         category: "girls",
+        quantity: 10,
     },
     {
         productName: "Kids' T-Shirt",
@@ -92,6 +93,7 @@ const products = [
             alt: "Kids' T-Shirt",
         },
         category: "boys",
+        quantity: 10,
     },
     {
         productName: "Kids' Shorts",
@@ -108,6 +110,7 @@ const products = [
             alt: "Kids' Shorts",
         },
         category: "boys",
+        quantity: 10,
     },
 
 ];

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import ordersSchema from "../schemas/orders-schema";
 
-const Orders = mongoose.model("Orders", ordersSchema);
+const Order = mongoose.model("Order", ordersSchema);
 
-export default Orders;
+export default Order;

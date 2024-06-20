@@ -7,7 +7,9 @@ import errorHandler from "./middleware/error-handler";
 import morgan from "morgan";
 import { productRouter } from "./routes/products";
 import cors from "cors";
-import { calculateTotalProductsPurchased } from "./services/orderAnalysis";
+import { ordersRouter } from "./routes/orders";
+import { analyticsRouter } from "./routes/analytics";
+
 configDevEnv();
 connect();
 
@@ -21,6 +23,8 @@ app.use(cors({ origin: "*" }));
 //http://localhost:8080/api/v1/users
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/products", productRouter);
+app.use("/api/v1/analytics", analyticsRouter);
+app.use("/api/v1/orders", ordersRouter);
 app.use(express.static("public"));
 app.use(errorHandler);
 app.use(notFound);
@@ -29,7 +33,6 @@ app.use(notFound);
 app.listen(8080, () => {
     console.log("Server is running on http://localhost:8080");
     console.log(`App is running in ${process.env.NODE_ENV} mode`);
-    // calculateTotalProductsPurchased();
 
 });
 
