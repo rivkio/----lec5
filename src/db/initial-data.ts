@@ -72,7 +72,7 @@ const products = [
         ages: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         web: "https://www.bing.com",
         image: {
-            url: "https://www.carouselwear.com/products/a-basket-of-pink-roses-baby-dress",
+            url: "https://www.pexels.com/photo/little-girl-holding-balloons-in-a-garden-20838026/",
             alt: "Floral Summer Dress",
         },
         category: "girls",

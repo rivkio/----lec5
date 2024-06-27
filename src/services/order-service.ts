@@ -78,7 +78,45 @@ export const orderService = {
         const count = await Order.countDocuments();
         return { orders: orders.map(order => order.toObject()), count };
     },
+
+    
+    // הזמנות לפי עלויות, תצוגה של הזמנות מסודרות לפי עלות כוללת, כולל פירוט מוצרים בכל הזמנה וסך כל העלויות
+    // getOrdersByTotalAmount: async () => {
+    //     const orders = await Order.find().populate('products.productId');
+    //     const sortedOrders = orders.sort((a, b) => b.totalAmount - a.totalAmount);
+    //     const totalAmount = orders.reduce((acc, order) => acc + order.totalAmount, 0);
+
+    //     const products = await Product.find({ _id: { $in: orders.map(order => order.products.map(product => product.productId)) } });
+
+    //     return {
+    //         orders: sortedOrders.map(order => ({
+    //             orderNumber: order.orderNumber,
+    //             totalAmount: order.totalAmount,
+    //             products: order.products.map(product => ({
+    //                 productName: products.find(p => p._id.toString() === product.productId.toString()).productName,
+    //                 quantity: product.quantity,
+    //                 price: product.,
+    //                 age: product.age,
+    //             })),
+    //         })),
+    //         totalAmount,
+    //     };
+    //     },
+
+
+
+
+    //להחזיר את היוזרים שבצעו את מספר הזמנות הכי גבוה כולל פירוט ההזמנות של כל יוזר וההכנסות מכל יוזר
+getUserByOrdersCount: async () => {
+    
+}
+
 };
+
+
+
+
+    
 
 
 

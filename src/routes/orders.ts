@@ -53,4 +53,17 @@ router.get("/", ...isAdmin, async (_, res, next) => {
 });
 
 
-export { router as ordersRouter}
+// router.get("/total-amount", ...isAdmin, async (_, res, next) => {
+//     try {
+//         const orders = await orderService.getOrdersByTotalAmount();
+//         res.json(orders);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
+
+
+
+
+
+export { router as ordersRouter }

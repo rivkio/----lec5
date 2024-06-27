@@ -51,15 +51,15 @@ export const productService = {
     // likeProduct: async (userId: string) => Product.find({ likes: userId }),
 
 
-    toggleFavorite: async (userId: string, productId: string) => {
+    toggleShoppingCart: async (userId: string, productId: string) => {
         const product = await Product.findById(productId);
         if (!product) throw new Error("Product not found");
 
-        const isFavorite = product.ShoppingCart.includes(userId);
+        const isFavorite = product.shoppingCart.includes(userId);
         if (isFavorite) {
-            product.ShoppingCart = product.ShoppingCart.filter(fav => fav.toString() !== userId);
+            product.shoppingCart = product.shoppingCart.filter(fav => fav.toString() !== userId);
         } else {
-            product.ShoppingCart.push(userId);
+            product.shoppingCart.push(userId);
         }
         await product.save();
         return product;

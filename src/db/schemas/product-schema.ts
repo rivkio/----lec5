@@ -17,7 +17,7 @@ const productSchema = new Schema<IProduct>({
     
     barcode: { type: Number, required: true, min: 1_000_000, max: 9_999_999 },
     createdAt: { type: Date, required: false, default: new Date() },
-    ShoppingCart: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    shoppingCart: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     quantity: { type: Number, required: true },
     sold: { type: Number, default: 0 },
     userId: { type: String, required: true },

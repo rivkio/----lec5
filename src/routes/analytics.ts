@@ -2,6 +2,7 @@ import { Router } from "express";
 import { analyticsService } from "../services/analytics-service";
 import { isAdmin } from "../middleware/is-admin";
 
+
 const router = Router();
 
 router.get("/inventory", isAdmin, async (req, res, next) => {
@@ -91,36 +92,49 @@ router.get("/sales-by-category/:category", isAdmin, async (req, res, next) => {
 
 
 
+router.get("/created-at", ...isAdmin, async (req, res, next) => {
+    try {
+        const orders = await analyticsService.getOrderByCreationDate();
+        res.json(orders);
+    } catch (e) {
+        next(e);
+    }
+});
 
 
 
+router.get("/status", ...isAdmin, async (req, res, next) => {
+    try {
+        const statuses = await analyticsService.getOrderStatus();
+        console.log("Fetched order statuses:", statuses); // הדפסת התוצאות
+        res.json(statuses);
+    } catch (e) {
+        console.error("Error fetching order statuses:", e.message); // הדפסת השגיאה לטרמינל
+        next(e);
+    }
+});
 
 
 
+router.get("/total-amount", ...isAdmin, async (req, res, next) => {
+    try {
+        const orders = await analyticsService.getOrdersByTotalAmount();
+        res.json(orders);
+    } catch (e) {
+        next(e);
+    }
+});
 
 
-// router.get("/products-by-sales/:quantity", isAdmin, async (req, res, next) => {
-//     try {
-//         const quantity = parseInt(req.params.quantity);
-//         const productsBySales = await analyticsService.getProductsBySales(quantity);
-//         res.json(productsBySales);
-//     } catch (e) {
-//         next(e);
-//     }
-// });
 
-
-// router.get("/products-by-inventory/:quantity", isAdmin, async (req, res, next) => {
-//     try {
-//         const quantity = parseInt(req.params.quantity);
-//         const productsByInventory = await analyticsService.getProductsByInventory(quantity);
-//         res.json(productsByInventory);
-//     } catch (e) {
-//         next(e);
-//     }
-// });
-
-
+router.get("/active-users", ...isAdmin, async (req, res, next) => {
+    try {
+        const usersByOrdersCount = await analyticsService.getUsersWithMostOrders();
+        res.json(usersByOrdersCount);
+    } catch (e) {
+        next(e);
+    }
+});
 
 
 

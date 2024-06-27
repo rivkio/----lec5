@@ -32,12 +32,12 @@ router.delete("/:id", ...isProductOwnerOrAdmin, validateToken, async (req, res, 
 // });
 
 
-router.patch("/:id/favorite", validateToken, async (req, res, next) => {
+router.patch("/:id/shopping-cart", validateToken, async (req, res, next) => {
     try {
         const userId = req.payload._id;
         const productId = req.params.id;
-        const user = await productService.toggleFavorite(userId, productId);
-        res.json(user);
+        const product = await productService.toggleShoppingCart(userId, productId);
+        res.json(product);
     } catch (e) {
         next(e);
     }
@@ -100,7 +100,6 @@ router.get("/:id", async (req, res, next) => {
         next(e);
     }
 });
-
 
 
 export { router as productRouter };

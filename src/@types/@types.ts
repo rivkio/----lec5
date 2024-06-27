@@ -55,7 +55,7 @@ export type IProductInput = {
     ages: number[];
     web: string;
     image: IImage;
-    category: "boys" | "girls";
+    category: string;
     quantity: number;
 };
 
@@ -63,7 +63,7 @@ export type IProduct = IProductInput & {
     productId: string,
     barcode: number,
     createdAt: Date,
-    ShoppingCart: string[],
+    shoppingCart: string[],
     quantity: number,
     sold: number,
     userId: string,
@@ -74,20 +74,13 @@ export type IIsBusiness = {
 };
 
 
-// export type IOrder = {
-//     orderNumber: string;
-//     orderDate: Date;
-//     orderItems: {
-//         product: string;
-//         quantity: number;
-//     }[];
-//     orderTotal: number;
-// };
 
 export type IOrderProduct = {
     productId: string;
     quantity: number;
     age: number;
+    productName: string;
+    price: number;
 };
 
 export type IOrder = {
@@ -99,3 +92,15 @@ export type IOrder = {
     orderNumber: string;
 };
 
+
+
+
+// export type IOrder = {
+//     orderNumber: string;
+//     orderDate: Date;
+//     orderItems: {
+//         product: string;
+//         quantity: number;
+//     }[];
+//     orderTotal: number;
+// };
