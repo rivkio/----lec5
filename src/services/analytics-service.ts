@@ -1,6 +1,7 @@
 import Order from "../db/models/orders-model";
 import Product from "../db/models/product-model";
 import User from "../db/models/user-model";
+import BizProductsError from "../errors/BizProductsError";
 
 export const analyticsService = {
 
@@ -14,85 +15,86 @@ export const analyticsService = {
     },
 
     
-    getTotalSold: async () => {
-        const products = await Product.find();
-        return products.reduce((acc, product) => acc + product.sold, 0);
+     getTotalSold: async () => {
+         const validStatuses = ["Pending", "pending", "approved", "processing", "shipped", "delivered", "returned", "completed"];
+
+        const orders = await Order.aggregate([
+            { $match: { status: { $in: validStatuses } } },
+            { $unwind: "$products" },
+            {
+                $group: {
+                    _id: null,
+                    totalSold: { $sum: "$products.quantity" }
+                }
+            }
+        ]);
+
+        return orders.length > 0 ? orders[0].totalSold : 0;
     },
 
-    //להחזיר את הכמות שנמכרה עבור מוצר מסוים
+
+
     getProductSales: async (productId: string) => {
         const product = await Product.findById(productId);
-        if (!product) throw new Error("Product not found");
+        if (!product) throw new BizProductsError(400, "Product not found");
         return {
             productName: product.productName,
             sold: product.sold,
         };
     },
 
-   
-    getSalesByDate: async (date: Date) => {
-        const products = await Product.find({ createdAt: date });
-        return products.map(product => ({
-            productName: product.productName,
-            sold: product.sold,
-        }));
+
+    getSalesByDate: async (startDate: Date, endDate: Date) => {
+        // הוספת יום אחד לתאריך הסיום כדי לכלול את כל היום הנוכחי
+        const adjustedEndDate = new Date(endDate);
+        adjustedEndDate.setDate(adjustedEndDate.getDate() + 1);
+
+        const salesByDate = await Order.aggregate([
+            {
+                $match: {
+                    createdAt: {
+                        $gte: new Date(startDate), // תאריך התחלה
+                        $lte: adjustedEndDate,   // תאריך סיום כולל את כל היום הנוכחי
+                    },
+                    status: { $ne: "cancelled" } // לא כולל הזמנות מבוטלות
+                },
+            },
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, // קיבוץ לפי יום
+                    totalAmount: { $sum: "$totalAmount" }, // סכום כל הכסף שנכנס
+                    totalSales: { $sum: 1 }, // סך כל המכירות
+                },
+            },
+            {
+                $sort: { _id: 1 }, // מיון לפי תאריך עולה
+            },
+        ]);
+
+        const overallSales = await Order.aggregate([
+            {
+                $match: {
+                    createdAt: {
+                        $gte: new Date(startDate), // תאריך התחלה
+                        $lte: adjustedEndDate,   // תאריך סיום כולל את כל היום הנוכחי
+                    },
+                    status: { $ne: "cancelled" } // לא כולל הזמנות מבוטלות
+                },
+            },
+            {
+                $group: {
+                    _id: null, // קיבוץ כל המסמכים יחד
+                    totalAmount: { $sum: "$totalAmount" }, // סכום כל הכסף שנכנס
+                    totalSales: { $sum: 1 }, // סך כל המכירות
+                },
+            },
+        ]);
+
+        return {
+            salesByDate,
+            overallSales: overallSales[0] || { totalAmount: 0, totalSales: 0 },
+        };
     },
-
-    
-    
-    getUnsoldProducts: async () => {
-        const products = await Product.find({ sold: 0 });
-        return products.map(product => ({
-            productName: product.productName,
-            quantity: product.quantity,
-        }));
-    },
-
-    //להחזיר את המוצרים שנמצאים במלאי יותר ממחיר מסוים
-    getProductsInventoryAbovePrice: async (price: number) => {
-        const products = await Product.find({ price: { $gt: price } });
-        return products.map(product => ({
-            productName: product.productName,
-            price: product.price,
-        }));
-    },
-
-    //להחזיר את המוצרים שנמצאים במלאי פחות ממחיר מסוים
-    getProductsInventoryBelowPrice: async (price: number) => {
-        const products = await Product.find({ price: { $lt: price } });
-        return products.map(product => ({
-            productName: product.productName,
-            price: product.price,
-        }));
-    },
-
-   
-    getProductsByCategory: async (category: string) => {
-        const products = await Product.find({ category });
-        return products.map(product => ({
-            productName: product.productName,
-            category: product.category,
-            sold: product.sold,
-        }));
-    },
-
-
-
-    getOrderByCreationDate: async () => {
-        const orders = await Order.find().populate("products.productId");
-        const sortedOrders = orders.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-        return sortedOrders.map(order => ({
-            orderNumber: order.orderNumber,
-            createdAt: order.createdAt,
-            products: order.products.map(product => ({
-                productName: product.productName,
-                quantity: product.quantity,
-                price: product.price,
-                age: product.age,
-            })),
-        }));
-    },
-
 
 
     getOrderStatus: async () => {
@@ -107,6 +109,57 @@ export const analyticsService = {
         return statuses;
     },
 
+
+    updateOrderStatus: async (orderId: string, status: string) => {
+        const validStatuses = ["pending", "approved", "processing", "shipped", "delivered", "cancelled", "returned", "completed"];
+        if (!validStatuses.includes(status)) {
+            throw new BizProductsError(400, "Invalid status");
+        }
+
+        const order = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
+        if (!order) {
+            throw new BizProductsError(400, "Order not found");
+        }
+
+        return order;
+    },
+
+    
+    getUnsoldProducts: async () => {
+        const products = await Product.find({ sold: 0 });
+        return products.map(product => ({
+            productName: product.productName,
+            quantity: product.quantity,
+        }));
+    },
+
+
+    getProductsByCategory: async (category: string) => {
+        const products = await Product.find({ category });
+        return products.map(product => ({
+            productName: product.productName,
+            category: product.category,
+            sold: product.sold,
+        }));
+    },
+
+
+    getProductsInventoryAbovePrice: async (price: number) => {
+        const products = await Product.find({ price: { $gt: price } });
+        return products.map(product => ({
+            productName: product.productName,
+            price: product.price,
+        }));
+    },
+
+
+    getProductsInventoryBelowPrice: async (price: number) => {
+        const products = await Product.find({ price: { $lt: price } });
+        return products.map(product => ({
+            productName: product.productName,
+            price: product.price,
+        }));
+    },
 
 
     getOrdersByTotalAmount: async () => {

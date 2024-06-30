@@ -31,6 +31,7 @@ export type IUserInput = {
 export type IUser = IUserInput & {
     createdAt: Date;
     isAdmin: boolean;
+    orders: object[];
 };
 
 export type ILogin = {
@@ -81,6 +82,7 @@ export type IOrderProduct = {
     age: number;
     productName: string;
     price: number;
+    barcode: number;
 };
 
 export type IOrder = {
@@ -93,14 +95,7 @@ export type IOrder = {
 };
 
 
-
-
-// export type IOrder = {
-//     orderNumber: string;
-//     orderDate: Date;
-//     orderItems: {
-//         product: string;
-//         quantity: number;
-//     }[];
-//     orderTotal: number;
-// };
+export interface SalesByDateQuery {
+    startDate: string;
+    endDate: string;
+};

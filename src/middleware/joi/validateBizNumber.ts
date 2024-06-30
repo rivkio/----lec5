@@ -15,17 +15,3 @@ const validateBizNumber = (req, res, next) => {
 };
 export default validateBizNumber;
 
-
-// import { RequestHandler } from "express";
-// import { ObjectSchema } from "joi";
-
-// type validateBizNumber = (schema: ObjectSchema) => RequestHandler;
-
-// export const validateSchema: validateBizNumber = (schema: ObjectSchema) => async (req, res, next) => {
-//     try {
-//         await schema.validateAsync(req.body);
-//         next();
-//     } catch (e) {
-//         next(e);
-//     }
-// };

@@ -2,9 +2,10 @@ import { RequestHandler } from "express";
 import { validateToken } from "./validate-token";
 import BizProductsError from "../errors/BizProductsError";
 import { productService } from "../services/product-service";
+import isProductId from "./is-product-id";
 
 
-const _isProductOwner: RequestHandler = async (req, _, next) => {
+const _isProductOwner: RequestHandler = async (req, res, next) => {
     const product = await productService.getProductById(req.params.id);
     const userId = req.payload._id;
 
@@ -18,7 +19,7 @@ const _isProductOwner: RequestHandler = async (req, _, next) => {
     // console.log(product.userId, userId);
 };
 
-export const isProductOwner = [validateToken, _isProductOwner];
+export const isProductOwner = [isProductId, validateToken, _isProductOwner];
 
 
 

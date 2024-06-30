@@ -8,9 +8,13 @@ const ordersSchema = new Schema({
             age: { type: Number, required: true },
             productName: { type: String, required: true },
             price: { type: Number, required: true },
+            barcode: { type: Number, required: true },
         }],
     totalAmount: { type: Number, required: false },
-    status: { type: String, default: "Pending" },
+    status: {
+        type: String, enum: ["pending", "approved", "processing", "shipped", "delivered", "cancelled", "returned", "completed"],
+        default: "pending"
+    },
     createdAt: { type: Date, default: Date.now },
     orderNumber: { type: String, required: true },
 });

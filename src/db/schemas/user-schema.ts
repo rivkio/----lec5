@@ -42,6 +42,10 @@ const userSchema = new Schema<IUser>({
         required: false,
         default: false
     },
+    orders: [{
+        type: Object,
+    },
+    ],
 });
 
 export default userSchema;

@@ -39,16 +39,6 @@ export const productService = {
     updateProduct: async (data: IProductInput, userId: string) => {
         return Product.updateOne({ userId: userId }, data);
     },
-    //update's Tzofiya
-
-    // updateProduct: async (id: string, data: IProductInput, userId: string) => {
-    //     const product = await Product.findOneAndUpdate({ _id: id, userId: userId }, data, { new: true });
-    //     if (!product) throw new Error("Product not found or user unauthorized to update this product");
-    //     return product;
-    // },
-
-    //like a product
-    // likeProduct: async (userId: string) => Product.find({ likes: userId }),
 
 
     toggleShoppingCart: async (userId: string, productId: string) => {
