@@ -3,6 +3,7 @@ import { IUser } from "../../@types/@types";
 import nameSchema from "./name-schema";
 import addressSchema from "./address-schema";
 import imageSchema from "./image-schema";
+import { object } from "joi";
 
 
 const userSchema = new Schema<IUser>({
@@ -42,10 +43,11 @@ const userSchema = new Schema<IUser>({
         required: false,
         default: false
     },
-    orders: [{
+    cart: [{
         type: Object,
-    },
-    ],
+        required: false,
+        default: []
+    }],
 });
 
 export default userSchema;

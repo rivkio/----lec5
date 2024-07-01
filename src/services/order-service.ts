@@ -15,7 +15,7 @@ export const orderService = {
                 if (productDetails.quantity < product.quantity) 
                     throw new BizProductsError(400, "Not enough stock");
 
-                const selectedAge = product.age;
+                const selectedSize = product.size;
            
                 // Update product stock
                 productDetails.quantity -= product.quantity;
@@ -29,7 +29,7 @@ export const orderService = {
                     barcode: productDetails.barcode,
                     quantity: product.quantity,
                     price: productDetails.price,
-                    age: selectedAge,
+                    size: selectedSize,
                 };
             }));
 

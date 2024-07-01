@@ -1,10 +1,11 @@
+import _ from "underscore";
 import { RequestHandler } from "express";
 import BizProductsError from "../errors/BizProductsError";
 import { productService } from "../services/product-service";
 
 
 
-const isProductId: RequestHandler = async (req, res, next) => {
+const isProductId: RequestHandler = async (req, _, next) => {
     const product = await productService.getProductById(req.params.id);
     if (product) {
         return next();

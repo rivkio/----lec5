@@ -1,11 +1,14 @@
 import { Router } from "express";
 import { analyticsService } from "../services/analytics-service";
 import { isAdmin } from "../middleware/is-admin";
+import BizProductsError from "../errors/BizProductsError";
+import { isCategory } from "../middleware/is-category";
+import _ from "underscore";
 
 
 const router = Router();
 
-router.get("/inventory", ...isAdmin, async (req, res, next) => {
+router.get("/inventory", ...isAdmin, async (_, res, next) => {
     try {
         const inventory = await analyticsService.getInventory();
         res.json(inventory);
@@ -15,7 +18,7 @@ router.get("/inventory", ...isAdmin, async (req, res, next) => {
 });
 
 
-router.get("/total-sold", ...isAdmin, async (req, res, next) => {
+router.get("/total-sold", ...isAdmin, async (_, res, next) => {
     try {
         const totalSold = await analyticsService.getTotalSold();
         res.json(totalSold);
@@ -43,6 +46,14 @@ router.get("/sales-by-date", ...isAdmin, async (req, res, next) => {
         const start = new Date(startDate as string);
         const end = new Date(endDate as string);
 
+        if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+            throw new BizProductsError(400, "Invalid date format");
+        }
+
+        if (end < start) {
+            throw new BizProductsError(400, "End date cannot be earlier than start date");
+        }
+
         const sales = await analyticsService.getSalesByDate(start, end);
         res.json(sales);
     } catch (e) {
@@ -52,7 +63,7 @@ router.get("/sales-by-date", ...isAdmin, async (req, res, next) => {
 
 
 
-router.get("/order-status", ...isAdmin, async (req, res, next) => {
+router.get("/order-status", ...isAdmin, async (_, res, next) => {
     try {
         const orderStatus = await analyticsService.getOrderStatus();
         res.json(orderStatus);
@@ -77,18 +88,7 @@ router.patch("/status/:orderId", ...isAdmin, async (req, res, next) => {
 
 
 
-router.get("/unsold-products", ...isAdmin, async (req, res, next) => {
-    try {
-        const unsoldProducts = await analyticsService.getUnsoldProducts();
-        res.json(unsoldProducts);
-    } catch (e) {
-        next(e);
-    }
-});
-
-
-
-router.get("/sales-by-category/:category", ...isAdmin, async (req, res, next) => {
+router.get("/sales-by-category/:category", ...isCategory, async (req, res, next) => {
     try {
         const category = req.params.category;
         const salesByCategory = await analyticsService.getProductsByCategory(category);
@@ -124,18 +124,7 @@ router.get("/products-below-price/:price", ...isAdmin, async (req, res, next) =>
 
 
 
-router.get("/total-amount", ...isAdmin, async (req, res, next) => {
-    try {
-        const orders = await analyticsService.getOrdersByTotalAmount();
-        res.json(orders);
-    } catch (e) {
-        next(e);
-    }
-});
-
-
-
-router.get("/active-users", ...isAdmin, async (req, res, next) => {
+router.get("/active-users", ...isAdmin, async (_, res, next) => {
     try {
         const usersByOrdersCount = await analyticsService.getUsersWithMostOrders();
         res.json(usersByOrdersCount);

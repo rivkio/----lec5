@@ -4,6 +4,7 @@ import { validateBusiness, validateLogin, validateUser } from "../middleware/joi
 import { isAdmin } from "../middleware/is-admin";
 import { isAdminOrSelf } from "../middleware/is-admin-or-self";
 import { isSelf } from "../middleware/is-self";
+import _ from "underscore";
 
 
 const router = Router();
@@ -45,7 +46,7 @@ router.delete("/:id", ...isAdminOrSelf, async (req, res, next) => {
   }
 });
 
-  router.get("/", ...isAdmin, async (req, res, next) => {
+  router.get("/", ...isAdmin, async (_, res, next) => {
     try {
       const users = await usersService.getAllUsers();
       res.json(users);

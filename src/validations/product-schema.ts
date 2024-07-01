@@ -10,11 +10,11 @@ const productSchema = Joi.object<IProductInput>({
     color: Joi.string().min(2).max(50).required(),
     sizes: Joi.array().items(Joi.number()).required(),
     model: Joi.string().min(2).max(50).required(),
-    ages: Joi.array().items(Joi.number()).required(),
     web: Joi.string().uri().min(14).max(100),
     image: imageSchema,
     category: Joi.string().valid("boys", "girls").required(),
-    quantity: Joi.number().required()
+    quantity: Joi.number().required(),
+    barcode: Joi.number().min(1_000_000).max(9_999_999).required(),
 });
 
 export default productSchema;

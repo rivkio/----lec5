@@ -1,4 +1,5 @@
 import { RequestHandler } from "express";
+import _ from "underscore";
 import { validateToken } from "./validate-token";
 import BizProductsError from "../errors/BizProductsError";
 import { productService } from "../services/product-service";
@@ -7,14 +8,12 @@ import { productService } from "../services/product-service";
 const _isProductOwnerOrAdmin: RequestHandler = async (req, _, next) => {
 
     try {
-
         const product = await productService.getProductById(req.params.id);
         const userId = req.payload._id;
 
         if (!product) return next(new BizProductsError(404, "Card not found"));
 
-        if (product.userId === userId || req.payload?.isAdmin) {
-            // console.log(product.userId, userId, req.payload?.isAdmin);
+        if (product && product.userId === userId || req.payload?.isAdmin) {
             return next();
 
         }

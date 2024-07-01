@@ -1,6 +1,7 @@
 import { RequestHandler, Request } from "express";
 import BizProductsError from "../errors/BizProductsError";
 import { authService } from "../services/auth-service";
+import _ from "underscore";
 
 
 const extractToken = (req: Request) => {

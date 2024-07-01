@@ -69,7 +69,6 @@ const products = [
         color: "Pink with colorful flowers",
         sizes: [2, 4, 6, 8, 10, 12],
         model: "2024-KID-DRS-PRT",
-        ages: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         web: "https://www.bing.com",
         image: {
             url: "https://www.pexels.com/photo/little-girl-holding-balloons-in-a-garden-20838026/",
@@ -84,9 +83,8 @@ const products = [
         productDescription: "Light and comfortable kids' t-shirt made of 100% breathable cotton with a subtle star print. The t-shirt comes in various colors with short sleeves, suitable for all seasons.",
         price: 49,
         color: "Blue, Green, Red, White",
-        sizes: [2, 4, 6, 8, 10, 12, 14],
+        sizes: [2, 4, 6, 8, 10, 12],
         model: "2024-KID-TEE-STR",
-        ages: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
         web: "https://www.bing.com",
         image: {
             url: "https://img.izismile.com/img/img13/20201030/640/you_have_never_seen_something_like_this_640_41.jpg",
@@ -103,7 +101,6 @@ const products = [
         color: "Dark Blue, Grey, Green",
         sizes: [2, 4, 6, 8, 10, 12],
         model: "2024-KID-SHR-CO",
-        ages: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         web: "https://www.bing.com",
         image: {
             url: "https://img.izismile.com/img/img13/20201030/640/you_have_never_seen_something_like_this_640_36.jpg",

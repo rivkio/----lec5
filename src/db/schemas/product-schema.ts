@@ -10,7 +10,6 @@ const productSchema = new Schema<IProduct>({
     color: { type: String, required: true, minlength: 2, maxlength: 50 },
     sizes: { type: [Number], required: true },
     model: { type: String, required: true, minlength: 2, maxlength: 50 },
-    ages: { type: [Number], required: true },
     web: { type: String, required: false, minlength: 14, maxlength: 100 },
     image: { type: imageSchema, required: true },
     category: { type: String, required: true, enum: ["boys", "girls"] },

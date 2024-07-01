@@ -31,7 +31,7 @@ export type IUserInput = {
 export type IUser = IUserInput & {
     createdAt: Date;
     isAdmin: boolean;
-    orders: object[];
+    cart: object[];
 };
 
 export type ILogin = {
@@ -53,11 +53,11 @@ export type IProductInput = {
     color: string;
     sizes: number[];
     model: string;
-    ages: number[];
     web: string;
     image: IImage;
     category: string;
     quantity: number;
+    barcode: number;
 };
 
 export type IProduct = IProductInput & {
@@ -79,7 +79,7 @@ export type IIsBusiness = {
 export type IOrderProduct = {
     productId: string;
     quantity: number;
-    age: number;
+    size: number;
     productName: string;
     price: number;
     barcode: number;
