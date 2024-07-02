@@ -63,14 +63,13 @@ export const productService = {
         const productInCart = user.cart.find(item => item.productId?.toString() === productIdStr);
 
         if (productInCart) {
-            console.log(yes)
             // Remove the product from the cart
             user.cart = user.cart.filter(item => item.productId?.toString() !== productIdStr);
             
         } else {
             // Add the product to the cart, ensuring all necessary properties are included
             user.cart.push({
-                productId: product._id,
+                productId: product._id.toString(),
                 productName: product.productName,
                 price: product.price,
             });

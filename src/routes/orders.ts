@@ -4,6 +4,7 @@ import { isSizeValid } from "../middleware/is-size";
 import { isAdmin } from "../middleware/is-admin";
 import { isAdminOrSelfUser } from "../middleware/is-admin-or-self-user";
 import _ from "underscore";
+import BizProductsError from "../errors/BizProductsError";
 
 
 const router = Router();
@@ -35,7 +36,7 @@ router.get("/:id", ...isAdmin, async (req, res, next) => {
 
 router.get("/user/:userId", ...isAdminOrSelfUser, async (req, res, next) => {
     try {
-        const userId = req.body.userId;
+        const userId = req.params.userId;
         const orders = await orderService.getOrdersByUser(userId);
         res.json(orders);
     } catch (e) {
