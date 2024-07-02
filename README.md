@@ -47,8 +47,8 @@ Create and cancel orders. Detailed order information including product details a
 - *TypeScript*: Typed superset of JavaScript.
 - *tsx*: Running TypeScript in Node.js.
 - *uuid*: Generating unique identifiers.
-- *chalk*: Terminal string styling done right.
-- *cors*: Middleware for enabling Cross-Origin Resource Sharing (CORS).
+- Chalk: Library for styling terminal string output.
+- cors: Middleware for enabling Cross-Origin Resource Sharing (CORS).
 
 ## API Documentation
 
