@@ -33,4 +33,4 @@ const userSchema = Joi.object<IUser>({
 
 export default userSchema;
 
-export { addressSchema, imageSchema }
+export { addressSchema, imageSchema, userSchema }

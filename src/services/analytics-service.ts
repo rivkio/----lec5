@@ -15,21 +15,33 @@ export const analyticsService = {
         }));
     },
 
-    getTotalSold: async () => {
-        const validStatuses = ["pending", "approved", "processing", "shipped", "delivered", "returned", "completed"];
+    // getTotalSold: async () => {
+    //     const validStatuses = ["pending", "approved", "processing", "shipped", "delivered", "returned", "completed"];
 
-        const orders = await Order.aggregate([
-            { $match: { status: { $in: validStatuses } } },
-            { $unwind: "$products" },
-            {
-                $group: {
-                    _id: null,
-                    totalSold: { $sum: "$products.quantity" }
-                }
-            }
-        ]);
-        return orders.length > 0 ? orders[0].totalSold : 0;
+    //     const orders = await Order.aggregate([
+    //         { $match: { status: { $in: validStatuses } } },
+    //         { $unwind: "$products" },
+    //         {
+    //             $group: {
+    //                 _id: null,
+    //                 totalSold: { $sum: "$products.quantity" }
+    //             }
+    //         }
+    //     ]);
+    //     return orders.length > 0 ? orders[0].totalSold : 0;
+    // },
+
+
+    getTopSellingProducts: async () => {
+        const products = await Product.find().sort({ sold: -1 }).limit(10);
+        return products.map(product => ({
+            productName: product.productName,
+            sold: product.sold,
+            price: product.price,
+            totalRevenue: product.sold * product.price  // חישוב סך ההכנסות
+        }));
     },
+
 
     getProductSales: async (productId: string) => {
         const product = await Product.findById(productId);

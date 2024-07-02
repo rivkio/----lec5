@@ -3,7 +3,8 @@ import { IUser } from "../../@types/@types";
 import nameSchema from "./name-schema";
 import addressSchema from "./address-schema";
 import imageSchema from "./image-schema";
-import { object } from "joi";
+import { string } from "joi";
+import { object } from "underscore";
 
 
 const userSchema = new Schema<IUser>({
@@ -44,9 +45,9 @@ const userSchema = new Schema<IUser>({
         default: false
     },
     cart: [{
-        type: Object,
-        required: false,
-        default: []
+        productId: { type: Schema.Types.ObjectId, ref: 'Product' },
+        productName: { type: String },
+        price: { type: Number },
     }],
 });
 

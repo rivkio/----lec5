@@ -45,34 +45,50 @@ export const productService = {
     getProductByUserId: async (userId: string) => Product.find({ userId: userId }),
 
     //update product
-    updateProduct: async (data: IProductInput, userId: string) => {
-        return Product.updateOne({ userId: userId }, data);
-    },
-
-
-    toggleShoppingCart: async (userId: string, productId: string) => {
-        const user = await User.findById(userId);
-        if (!user)
-            throw new BizProductsError(404, "User not found");
-
-        const product = await Product.findById(productId);
-        if (!product)
-            throw new BizProductsError(404, "Product not found");
-
-        const productDetails = product.toObject();
-        const isInCart = user.cart.includes(productDetails);
-        if (isInCart) {
-            user.cart = user.cart.filter(title => title !== productDetails);
-        } else {
-            user.cart.push(productDetails);
-        }
-        await user.save();
+    updateProduct: async (id: string, data: IProductInput) => {
+        const product = await Product.findOneAndUpdate({ _id: id, }, data, { new: true });
         return product;
     },
 
 
-    getShoppingCart: async (userId: string) => Product.find({ shoppingCart: userId }),
 
+    toggleShoppingCart: async (userId: string, productId: string) => {
+        const user = await User.findById(userId);
+        const product = await Product.findById(productId);
+
+        // Ensure that productId is a string before comparison
+        const productIdStr = productId.toString();
+
+        // Find the product in the cart, checking if productId exists and is a string
+        const productInCart = user.cart.find(item => item.productId?.toString() === productIdStr);
+
+        if (productInCart) {
+            console.log(yes)
+            // Remove the product from the cart
+            user.cart = user.cart.filter(item => item.productId?.toString() !== productIdStr);
+            
+        } else {
+            // Add the product to the cart, ensuring all necessary properties are included
+            user.cart.push({
+                productId: product._id,
+                productName: product.productName,
+                price: product.price,
+            });
+        }
+
+        await user.save();
+        return user.cart;
+    },
+
+
+    getShoppingCart: async (userId: string) => {
+        const user = await User.findById(userId);
+        if (user) {
+            return user.cart;
+        } else {
+            throw new BizProductsError(400, "User not found");
+        }
+    },
 
 
     //delete product

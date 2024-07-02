@@ -12,4 +12,5 @@ const isProductId: RequestHandler = async (req, _, next) => {
     }
     next(new BizProductsError(400, "Product is not found"));
 }
+
 export default isProductId;

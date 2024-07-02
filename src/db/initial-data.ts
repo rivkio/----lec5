@@ -1,6 +1,7 @@
 const users = [
     {
         isAdmin: true,
+        cart: [],
         name: {
             first: "RivkiO",
             middle: "",
@@ -21,6 +22,7 @@ const users = [
     },
     {
         isAdmin: false,
+        cart: [],
         name: {
             first: "Avi",
             middle: "",
@@ -41,6 +43,7 @@ const users = [
     },
     {
         isAdmin: false,
+        cart: [],
         name: {
             first: "Dassi",
             middle: "",

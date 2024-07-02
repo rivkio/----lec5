@@ -18,14 +18,14 @@ router.get("/inventory", ...isAdmin, async (_, res, next) => {
 });
 
 
-router.get("/total-sold", ...isAdmin, async (_, res, next) => {
-    try {
-        const totalSold = await analyticsService.getTotalSold();
-        res.json(totalSold);
-    } catch (e) {
-        next(e);
-    }
-});
+// router.get("/total-sold", ...isAdmin, async (_, res, next) => {
+//     try {
+//         const totalSold = await analyticsService.getTotalSold();
+//         res.json(totalSold);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 router.get("/product-sales/:id", ...isAdmin, async (req, res, next) => {
     try {
@@ -36,6 +36,18 @@ router.get("/product-sales/:id", ...isAdmin, async (req, res, next) => {
         next(e);
     }
 });
+
+
+
+router.get("/products/top-selling", ...isAdmin, async (_, res, next) => {
+    try {
+        const topSellingProducts = await analyticsService.getTopSellingProducts();
+        res.json(topSellingProducts);
+    } catch (e) {
+        next(e);
+    }
+});
+
 
 
 router.get("/sales-by-date", ...isAdmin, async (req, res, next) => {
