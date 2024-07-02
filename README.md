@@ -21,9 +21,7 @@ NodeAPIProject-Shop is a comprehensive backend system for managing an online chi
 
 ### Order Processing
 
-- *Create, cancel, and retrieve orders*.
-- *Automatic stock adjustment* based on order status.
-- *Detailed order information* including product details and total amount.
+Create and cancel orders. Detailed order information including product details and total amount.
 
 
 ### Analytics
