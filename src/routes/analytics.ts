@@ -18,14 +18,6 @@ router.get("/inventory", ...isAdmin, async (_, res, next) => {
 });
 
 
-// router.get("/total-sold", ...isAdmin, async (_, res, next) => {
-//     try {
-//         const totalSold = await analyticsService.getTotalSold();
-//         res.json(totalSold);
-//     } catch (e) {
-//         next(e);
-//     }
-// });
 
 router.get("/product-sales/:id", ...isAdmin, async (req, res, next) => {
     try {

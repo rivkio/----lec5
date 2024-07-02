@@ -15,22 +15,6 @@ export const analyticsService = {
         }));
     },
 
-    // getTotalSold: async () => {
-    //     const validStatuses = ["pending", "approved", "processing", "shipped", "delivered", "returned", "completed"];
-
-    //     const orders = await Order.aggregate([
-    //         { $match: { status: { $in: validStatuses } } },
-    //         { $unwind: "$products" },
-    //         {
-    //             $group: {
-    //                 _id: null,
-    //                 totalSold: { $sum: "$products.quantity" }
-    //             }
-    //         }
-    //     ]);
-    //     return orders.length > 0 ? orders[0].totalSold : 0;
-    // },
-
 
     getTopSellingProducts: async () => {
         const products = await Product.find().sort({ sold: -1 }).limit(10);
