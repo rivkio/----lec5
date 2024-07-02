@@ -49,10 +49,11 @@ Management dashboard for comprehensive sales and inventory insights.
 
 For detailed API documentation, including all endpoints, request methods, and parameters, please refer to the following Postman Documentation links:
 
-1. [Analyze](your-postman-analyze-documentation-link)
-2. [Orders](your-postman-orders-documentation-link)
-3. [Products](your-postman-products-documentation-link)
-4. [Users](your-postman-users-documentation-link)
+1. https://documenter.getpostman.com/view/34978047/2sA3dxCArr
+2. https://documenter.getpostman.com/view/34978047/2sA3dxCAwE
+3. https://documenter.getpostman.com/view/34978047/2sA3dxCAwJ
+4. https://documenter.getpostman.com/view/34978047/2sA3QmCu1H
+5. 
 
 Future Enhancements
 Further development of the analytics system for more comprehensive sales tracking.
