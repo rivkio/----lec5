@@ -62,6 +62,4 @@ For detailed API documentation, including all endpoints, request methods, and pa
 
 ## Future Enhancements
 
-- Further development of the analytics system for more comprehensive sales tracking.
-- Adding more user roles and permissions.
-- Enhancing the product and order management features.
+Future Enhancements Further development of the analytics system for more comprehensive sales tracking. Adding more user roles and permissions. Enhancing the product and order management features.
