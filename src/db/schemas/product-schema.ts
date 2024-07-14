@@ -7,7 +7,7 @@ const productSchema = new Schema<IProduct>({
     subtitle: { type: String, required: true, minlength: 2, maxlength: 256 },
     productDescription: { type: String, required: true, minlength: 2, maxlength: 1024 },
     price: { type: Number, required: true, /* min: 0, max: 1_000_000 */ },
-    color: { type: String, required: true, minlength: 2, maxlength: 50 },
+    color: { type: [String], required: true, minlength: 2, maxlength: 50 },
     sizes: { type: [Number], required: true },
     model: { type: String, required: true, minlength: 2, maxlength: 50 },
     web: { type: String, required: false, minlength: 14, maxlength: 100 },

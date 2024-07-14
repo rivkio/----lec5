@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { usersService } from "../services/users-service";
-import { validateBusiness, validateLogin, validateUser } from "../middleware/joi";
+import { validateBusiness, validateLogin, validateUpdateUser, validateUser } from "../middleware/joi";
 import { isAdmin } from "../middleware/is-admin";
 import { isAdminOrSelf } from "../middleware/is-admin-or-self";
 import { isSelf } from "../middleware/is-self";
@@ -10,7 +10,7 @@ import _ from "underscore";
 const router = Router();
 
 
-router.put("/:id", ...isSelf, validateUser, async (req, res, next) => {
+router.put("/:id", ...isSelf, validateUpdateUser, async (req, res, next) => {
   try {
     const saved = await usersService.updateUser(req.body, req.payload._id);
     res.json(saved);

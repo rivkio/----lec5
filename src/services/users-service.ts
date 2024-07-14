@@ -1,12 +1,12 @@
-import { IJWTPayload, ILogin, IUser, IUserInput } from "../@types/@types";
+import { IJWTPayload, ILogin, IUpdateUserType, IUser, IUserInput } from "../@types/@types";
 import User from "../db/models/user-model";
 import BizProductsError from "../errors/BizProductsError";
 import { authService } from "./auth-service";
 
 export const usersService = {
 
-    updateUser: async (data: IUserInput, id: string) => {
-        data.password = await authService.hashPassword(data.password);
+    updateUser: async (data: IUpdateUserType, id: string) => {
+        // data.password = await authService.hashPassword(data.password);
         return User.findOneAndUpdate({ _id: id }, data, { new: true });
     },
 
@@ -39,7 +39,7 @@ export const usersService = {
         const payload: IJWTPayload = {
             _id: user._id.toString(),
             isAdmin: user.isAdmin,
-            isBusiness: user.isBusiness,
+            // isBusiness: user.isBusiness,
         };
         return authService.generateJWT(payload);
     },

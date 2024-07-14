@@ -3,8 +3,6 @@ import { IUser } from "../../@types/@types";
 import nameSchema from "./name-schema";
 import addressSchema from "./address-schema";
 import imageSchema from "./image-schema";
-import { string } from "joi";
-import { object } from "underscore";
 
 
 const userSchema = new Schema<IUser>({
@@ -30,10 +28,10 @@ const userSchema = new Schema<IUser>({
         minlength: 9,
         maxlength: 11
     },
-    isBusiness: {
-        type: Boolean,
-        required: true
-    },
+    // isBusiness: {
+    //     type: Boolean,
+    //     required: true
+    // },
     createdAt: {
         type: Date,
         required: false,

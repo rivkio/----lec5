@@ -22,7 +22,7 @@ export type IUserInput = {
     email: string;
     phone: string;
     password: string;
-    isBusiness: boolean;
+    // isBusiness: boolean;
     address: IAddress;
     name: IName;
     image?: IImage;
@@ -32,6 +32,27 @@ export type IUser = IUserInput & {
     createdAt: Date;
     isAdmin: boolean;
     cart: ICartProduct[];
+};
+
+export type IUpdateUserType = {
+    name: {
+        first: string;
+        middle: string;
+        last: string;
+    };
+    phone: string;
+    image: {
+        url: string;
+        alt: string;
+    };
+    address: {
+        state: string;
+        country: string;
+        city: string;
+        street: string;
+        houseNumber: number;
+        zip: number;
+    };
 };
 
 export type ICartProduct = {
@@ -49,7 +70,7 @@ export type ILogin = {
 export type IJWTPayload = {
     _id: string,
     isAdmin: boolean,
-    isBusiness: boolean
+    // isBusiness: boolean
 };
 
 export type IProductInput = {
@@ -57,14 +78,13 @@ export type IProductInput = {
     subtitle: string;
     productDescription: string;
     price: number;
-    color: string;
+    color: string[];
     sizes: number[];
     model: string;
     web: string;
     image: IImage;
     category: string;
     quantity: number;
-    barcode: number;
 };
 
 export type IProduct = IProductInput & {

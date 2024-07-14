@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { passwordRegex, phoneRegex } from "./patterns";
-import { IAddress, IImage, IName, IUser } from "../@types/@types";
+import { IAddress, IImage, IName, IUpdateUserType, IUser } from "../@types/@types";
 
 const addressSchema = Joi.object<IAddress>({
     city: Joi.string().min(2).max(50).required(),
@@ -17,7 +17,7 @@ const imageSchema = Joi.object<IImage>({
 });
 
 const userSchema = Joi.object<IUser>({
-    isBusiness: Joi.boolean().required(),
+    // isBusiness: Joi.boolean().required(),
     email: Joi.string().email().required(),
     phone: Joi.string().pattern(phoneRegex).required(),
     password: Joi.string().pattern(passwordRegex).required(),
@@ -31,6 +31,17 @@ const userSchema = Joi.object<IUser>({
     image: imageSchema,
 });
 
+const updateUserSchema = Joi.object<IUpdateUserType>({
+    name: Joi.object<IName>({
+        first: Joi.string().min(2).max(50),
+        middle: Joi.string().min(0),
+        last: Joi.string().min(2).max(50),
+    }),
+    phone: Joi.string().pattern(phoneRegex),
+    image: imageSchema,
+    address: addressSchema,
+});
+
 export default userSchema;
 
-export { addressSchema, imageSchema, userSchema }
+export { addressSchema, imageSchema, userSchema, updateUserSchema };

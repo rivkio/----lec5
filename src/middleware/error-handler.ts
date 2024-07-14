@@ -1,7 +1,6 @@
 import { ValidationError } from 'joi';
 import { ErrorRequestHandler } from "express";
 import { MongoServerError } from "mongodb";
-import { CastError } from "mongoose";
 import BizProductsError from '../errors/BizProductsError';
 import { error } from 'console';
 
@@ -11,7 +10,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
     //my error
     if (err instanceof BizProductsError) {
-        return res.status(err.status).json(err);
+        return res.status(err.status).json(err.message);
     }
 
     if (err instanceof MongoServerError && err.code === 11000) {
