@@ -5,19 +5,42 @@ import { validateToken } from "../middleware/validate-token";
 import isProductId from "../middleware/is-product-id";
 import { isAdmin } from "../middleware/is-admin";
 import _ from "underscore";
+import upload from "../middleware/uploads";
+import productSchema from "../db/schemas/product-schema";
+
+
 
 
 const router = Router();
 
 
-router.post("/", ...isAdmin, validateProduct, async (req, res, next) => {
+// router.post("/", ...isAdmin, validateProduct, async (req, res, next) => {
+//     try {
+//         const result = await productService.createProduct(req.body, req.payload._id);
+//         res.status(201).json(result);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
+
+
+router.post("/", ...isAdmin, upload.single("image"), validateProduct, async (req, res, next) => {
     try {
-        const result = await productService.createProduct(req.body, req.payload._id);
+        console.log("Payload:", req.payload); // הוספת דיבאג
+        if (!req.payload) {
+            throw new Error("Invalid token");
+        }
+        const imageUrl = `http://localhost:8080/uploads/${req.file.filename}`;
+        res.json({ imageUrl })
+        const productData = { ...req.body, image: { url: imageUrl, alt: req.body.alt } };
+        const result = await productService.createProduct(productData, req.payload._id);
         res.status(201).json(result);
     } catch (e) {
         next(e);
     }
 });
+
+
 
 
 router.delete("/:id", ...isAdmin, async (req, res, next) => {
@@ -41,7 +64,7 @@ router.put("/:id", ...isAdmin, isProductId, async (req, res, next) => {
     } catch (e) {
         next(e);
     }
-}); 
+});
 
 
 

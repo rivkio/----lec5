@@ -10,10 +10,9 @@ const productSchema = new Schema<IProduct>({
     color: { type: [String], required: true, minlength: 2, maxlength: 50 },
     sizes: { type: [Number], required: true },
     model: { type: String, required: true, minlength: 2, maxlength: 50 },
-    web: { type: String, required: false, minlength: 14, maxlength: 100 },
-    image: { type: imageSchema, required: true },
+    image: { type: imageSchema, required: true, minlength: 2, maxlength: 1024 },
+    alt: { type: String, required: true },
     category: { type: String, required: true, enum: ["boys", "girls"] },
-    
     barcode: { type: Number, required: true, min: 1_000_000, max: 9_999_999 },
     createdAt: { type: Date, required: false, default: new Date() },
     shoppingCart: [{ type: Schema.Types.ObjectId, ref: 'User' }],

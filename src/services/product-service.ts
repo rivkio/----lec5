@@ -34,6 +34,25 @@ export const productService = {
         return product.save();
     },
 
+    // createProduct: async (data: IProductInput, userId: string) => {
+
+    //     // בדיקה אם המוצר כבר קיים
+    //     const existingProduct = await Product.findOne({ productName: data.productName, userId });
+    //     if (existingProduct) {
+    //         throw new BizProductsError(400, "Product already exists");
+    //     }
+
+    //     // יצירת אובייקט מוצר חדש עם הנתונים שהתקבלו מהבקשה
+    //     const product = new Product({
+    //         ...data,  // כול הנתונים שהתקבלו מהבקשה
+    //         userId,   // מזהה המשתמש
+    //         barcode: await generateBizNumber()  // יצירת ברקוד חדש למוצר
+    //     });
+
+    //     // שמירת המוצר במסד הנתונים
+    //     return product.save();
+    // },
+
 
     //get all products
     getAllProducts: async () => Product.find(),

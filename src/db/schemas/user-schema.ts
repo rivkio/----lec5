@@ -2,13 +2,13 @@ import { Schema } from "mongoose";
 import { IUser } from "../../@types/@types";
 import nameSchema from "./name-schema";
 import addressSchema from "./address-schema";
-import imageSchema from "./image-schema";
+// import imageSchema from "./image-schema";
 
 
 const userSchema = new Schema<IUser>({
     name: nameSchema,
     address: addressSchema,
-    image: { type: imageSchema, required: false },
+    // image: { type: imageSchema, required: false },
     email: {
         type: String,
         required: true,

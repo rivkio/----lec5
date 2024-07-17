@@ -14,8 +14,8 @@ export type IAddress = {
 };
 
 export type IImage = {
-    alt: string;
     url: string;
+    alt: string;
 };
 
 export type IUserInput = {
@@ -25,7 +25,7 @@ export type IUserInput = {
     // isBusiness: boolean;
     address: IAddress;
     name: IName;
-    image?: IImage;
+    // image?: IImage;
 };
 
 export type IUser = IUserInput & {
@@ -41,10 +41,10 @@ export type IUpdateUserType = {
         last: string;
     };
     phone: string;
-    image: {
-        url: string;
-        alt: string;
-    };
+    // image: {
+    //     url: string;
+    //     alt: string;
+    // };
     address: {
         state: string;
         country: string;
@@ -73,6 +73,7 @@ export type IJWTPayload = {
     // isBusiness: boolean
 };
 
+
 export type IProductInput = {
     productName: string;
     subtitle: string;
@@ -81,8 +82,8 @@ export type IProductInput = {
     color: string[];
     sizes: number[];
     model: string;
-    web: string;
-    image: IImage;
+    image?: IImage;
+    alt: string;
     category: string;
     quantity: number;
 };
@@ -97,10 +98,10 @@ export type IProduct = IProductInput & {
     userId: string,
 };
 
+
 export type IIsBusiness = {
     isBusiness: boolean
 };
-
 
 
 export type IOrderProduct = {
