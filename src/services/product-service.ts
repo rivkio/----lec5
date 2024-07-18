@@ -64,7 +64,7 @@ export const productService = {
     getProductByUserId: async (userId: string) => Product.find({ userId: userId }),
 
     //update product
-    updateProduct: async (id: string, data: IProductInput) => {
+    updateProduct: async (id: string, data: FormData) => {
         const product = await Product.findOneAndUpdate({ _id: id, }, data, { new: true });
         return product;
     },

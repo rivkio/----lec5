@@ -62,6 +62,18 @@ export type ICartProduct = {
 
 };
 
+
+export type ICartItem = {
+    productId: string;
+    quantity: number;
+};
+
+export type ICart = {
+    userId: string;
+    items: ICartItem[];
+};
+
+
 export type ILogin = {
     email: string;
     password: string
@@ -127,3 +139,5 @@ export interface SalesByDateQuery {
     startDate: string;
     endDate: string;
 };
+
+
