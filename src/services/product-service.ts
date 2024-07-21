@@ -71,42 +71,42 @@ export const productService = {
 
 
 
-    toggleShoppingCart: async (userId: string, productId: string) => {
-        const user = await User.findById(userId);
-        const product = await Product.findById(productId);
+    // toggleShoppingCart: async (userId: string, productId: string) => {
+    //     const user = await User.findById(userId);
+    //     const product = await Product.findById(productId);
 
-        // Ensure that productId is a string before comparison
-        const productIdStr = productId.toString();
+    //     // Ensure that productId is a string before comparison
+    //     const productIdStr = productId.toString();
 
-        // Find the product in the cart, checking if productId exists and is a string
-        const productInCart = user.cart.find(item => item.productId?.toString() === productIdStr);
+    //     // Find the product in the cart, checking if productId exists and is a string
+    //     const productInCart = user.cart.find(item => item.productId?.toString() === productIdStr);
 
-        if (productInCart) {
-            // Remove the product from the cart
-            user.cart = user.cart.filter(item => item.productId?.toString() !== productIdStr);
+    //     if (productInCart) {
+    //         // Remove the product from the cart
+    //         user.cart = user.cart.filter(item => item.productId?.toString() !== productIdStr);
             
-        } else {
-            // Add the product to the cart, ensuring all necessary properties are included
-            user.cart.push({
-                productId: product._id.toString(),
-                productName: product.productName,
-                price: product.price,
-            });
-        }
+    //     } else {
+    //         // Add the product to the cart, ensuring all necessary properties are included
+    //         user.cart.push({
+    //             productId: product._id.toString(),
+    //             productName: product.productName,
+    //             price: product.price,
+    //         });
+    //     }
 
-        await user.save();
-        return user.cart;
-    },
+    //     await user.save();
+    //     return user.cart;
+    // },
 
 
-    getShoppingCart: async (userId: string) => {
-        const user = await User.findById(userId);
-        if (user) {
-            return user.cart;
-        } else {
-            throw new BizProductsError(400, "User not found");
-        }
-    },
+    // getShoppingCart: async (userId: string) => {
+    //     const user = await User.findById(userId);
+    //     if (user) {
+    //         return user.cart;
+    //     } else {
+    //         throw new BizProductsError(400, "User not found");
+    //     }
+    // },
 
 
     //delete product
@@ -114,14 +114,14 @@ export const productService = {
 
 
 
-    bulkReplenishStock: async (updates: { id: string; sizes: number[]; quantity: number }[]) => {
+    bulkReplenishStock: async (updates: { id: string; size: number; quantity: number }[]) => {
         if (!Array.isArray(updates) || updates.length === 0) {
             throw new BizProductsError(400, "Updates must be a non-empty array");
         }
         const results = [];
 
         for (const update of updates) {
-            if (!update.id || !update.sizes || !update.quantity) {
+            if (!update.id || !update.size || !update.quantity) {
                 throw new BizProductsError(400, "Each update must include id, size, and quantity");
             }
             if (update.quantity <= 0) {
@@ -130,10 +130,10 @@ export const productService = {
 
             const product = await Product.findById(update.id);
             if (!product) throw new BizProductsError(404, `Product not found: ${update.id}`);
-            if (!update.sizes.every(size => [2, 4, 6, 8, 10, 12].includes(size))) {
-                throw new BizProductsError(400, `Invalid size: ${update.sizes}`);
-            }
-            product.sizes = [...new Set([...product.sizes, ...update.sizes])];
+            // if (!update.size.every(size => 2,.includes(size))) {
+            //     throw new BizProductsError(400, `Invalid size: ${update.size}`);
+            // }
+            // product.size = [...new Set([...product.size, ...update.size])];
             product.quantity += update.quantity;
             await product.save();
             results.push(product);

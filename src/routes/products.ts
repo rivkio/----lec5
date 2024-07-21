@@ -114,27 +114,27 @@ router.get("/:id", isProductId, async (req, res, next) => {
 });
 
 
-router.patch("/:id/shopping-cart", validateToken, isProductId, async (req, res, next) => {
-    try {
-        const userId = req.payload._id;
-        const productId = req.params.id;
-        const cart = await productService.toggleShoppingCart(userId, productId);
-        res.json(cart);
-    } catch (e) {
-        next(e);
-    }
-});
+// router.patch("/:id/shopping-cart", validateToken, isProductId, async (req, res, next) => {
+//     try {
+//         const userId = req.payload._id;
+//         const productId = req.params.id;
+//         const cart = await productService.toggleShoppingCart(userId, productId);
+//         res.json(cart);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 
-router.get("/shopping-cart/all", validateToken, async (req, res, next) => {
-    try {
-        const userId = req.payload._id;
-        const products = await productService.getShoppingCart(userId);
-        res.json(products);
-    } catch (e) {
-        next(e);
-    }
-});
+// router.get("/shopping-cart/all", validateToken, async (req, res, next) => {
+//     try {
+//         const userId = req.payload._id;
+//         const products = await productService.getShoppingCart(userId);
+//         res.json(products);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 
 router.patch("/replenish", ...isAdmin, async (req, res, next) => {

@@ -16,7 +16,7 @@ const _isSizeValid: RequestHandler  = async (req, _, next) => {
         }
 
         // Check if productDetails.sizes is an array before accessing it
-        if (Array.isArray(productDetails.sizes) && productDetails.sizes.includes(size)) {
+        if (Array.isArray(productDetails.size) && productDetails.size.includes(size)) {
             return next();
         }
 

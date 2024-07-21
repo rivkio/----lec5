@@ -70,7 +70,7 @@ const products = [
         productDescription: "Light and comfortable summer dress made of 100% high-quality cotton with a colorful floral print. The dress features short sleeves and an A-line silhouette, perfect for hot summer days. Convenient back button closure.",
         price: 99,
         color: "Pink with colorful flowers",
-        sizes: [2, 4, 6, 8, 10, 12],
+        size: 6,
         model: "2024-KID-DRS-PRT",
         web: "https://www.bing.com",
         image: {
@@ -86,7 +86,7 @@ const products = [
         productDescription: "Light and comfortable kids' t-shirt made of 100% breathable cotton with a subtle star print. The t-shirt comes in various colors with short sleeves, suitable for all seasons.",
         price: 49,
         color: "Blue, Green, Red, White",
-        sizes: [2, 4, 6, 8, 10, 12],
+        size: 2,
         model: "2024-KID-TEE-STR",
         web: "https://www.bing.com",
         image: {
@@ -102,7 +102,7 @@ const products = [
         productDescription: "Shorts made of 100% soft and comfortable cotton, with side pockets and a drawstring waist for perfect fit. Available in various colors, suitable for summer activities and outdoor play.",
         price: 69,
         color: "Dark Blue, Grey, Green",
-        sizes: [2, 4, 6, 8, 10, 12],
+        size: 4,
         model: "2024-KID-SHR-CO",
         web: "https://www.bing.com",
         image: {

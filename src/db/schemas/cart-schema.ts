@@ -1,13 +1,18 @@
-// import { Schema } from 'mongoose';
-// import { ICart } from '../../@types/@types';
-// import cartItemSchema from './cartItem-schema';
+import { Schema } from 'mongoose';
+import { ICart } from '../../@types/@types';
+// import { cartItemSchema } from './cartItem-schema';
+
+
+export const cartSchema = new Schema<ICart>({
+    userId: { type: String, required: true },
+    items: [{
+        productId: { type: String, required: true },
+        quantity: { type: Number, required: true },
+        productName: { type: String, required: true },
+        price: { type: Number, required: true },
+        size: { type: Number, required: true }
+    }]
+});
 
 
 
-// const cartSchema = new Schema<ICart>({
-//     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
-//     items: { type: [cartItemSchema], default: [] },
-// });
-
-
-// export default cartSchema;

@@ -11,7 +11,7 @@ const _isProductOwnerOrAdmin: RequestHandler = async (req, _, next) => {
         const product = await productService.getProductById(req.params.id);
         const userId = req.payload._id;
 
-        if (!product) return next(new BizProductsError(404, "Card not found"));
+        if (!product) return next(new BizProductsError(404, "Product not found"));
 
         if (product && product.userId === userId || req.payload?.isAdmin) {
             return next();

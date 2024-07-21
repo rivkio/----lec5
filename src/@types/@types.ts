@@ -26,12 +26,14 @@ export type IUserInput = {
     address: IAddress;
     name: IName;
     // image?: IImage;
+    // alt: string;
 };
 
 export type IUser = IUserInput & {
+    _id?: string;
     createdAt: Date;
     isAdmin: boolean;
-    cart: ICartProduct[];
+    cart?: [],
 };
 
 export type IUpdateUserType = {
@@ -55,21 +57,24 @@ export type IUpdateUserType = {
     };
 };
 
-export type ICartProduct = {
-    productId: string;
+// export type ICartProduct = {
+//     productId: string;
+//     productName: string;
+//     price: number;
+
+// };
+
+
+export interface ICartItem {
+    productId: string; 
+    quantity: number;
     productName: string;
     price: number;
-
+    size: number;
 };
 
-
-export type ICartItem = {
-    productId: string;
-    quantity: number;
-};
-
-export type ICart = {
-    userId: string;
+export interface ICart extends Document {
+    userId: string; 
     items: ICartItem[];
 };
 
@@ -91,8 +96,8 @@ export type IProductInput = {
     subtitle: string;
     productDescription: string;
     price: number;
-    color: string[];
-    sizes: number[];
+    color: string;
+    size: number;
     model: string;
     image?: IImage;
     alt: string;

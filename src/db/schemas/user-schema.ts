@@ -42,11 +42,11 @@ const userSchema = new Schema<IUser>({
         required: false,
         default: false
     },
-    cart: [{
-        productId: { type: Schema.Types.ObjectId, ref: 'Product' },
-        productName: { type: String },
-        price: { type: Number },
-    }],
+    // cart: [{
+    //     productId: { type: Schema.Types.ObjectId, ref: 'Product' },
+    //     productName: { type: String },
+    //     price: { type: Number },
+    // }],
 });
 
 export default userSchema;

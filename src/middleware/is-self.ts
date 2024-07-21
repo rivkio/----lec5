@@ -9,7 +9,7 @@ const _isSelf: RequestHandler = (req, _, next) => {
         return next();
     }
 
-    next(new BizProductsError(403, "Only the product owner is allowed"));
+    next(new BizProductsError(403, "Only the user is allowed"));
 };
 
 export const isSelf = [validateToken, _isSelf];
