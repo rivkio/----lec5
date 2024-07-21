@@ -118,23 +118,32 @@ export const productService = {
         if (!Array.isArray(updates) || updates.length === 0) {
             throw new BizProductsError(400, "Updates must be a non-empty array");
         }
+
         const results = [];
 
         for (const update of updates) {
-            if (!update.id || !update.size || !update.quantity) {
-                throw new BizProductsError(400, "Each update must include id, size, and quantity");
+            if (!update.id || typeof update.size !== 'number' || typeof update.quantity !== 'number') {
+                throw new BizProductsError(400, "Each update must include id, size, and quantity as numbers");
             }
             if (update.quantity <= 0) {
                 throw new BizProductsError(400, "Quantity must be greater than 0");
             }
 
             const product = await Product.findById(update.id);
-            if (!product) throw new BizProductsError(404, `Product not found: ${update.id}`);
-            // if (!update.size.every(size => 2,.includes(size))) {
-            //     throw new BizProductsError(400, `Invalid size: ${update.size}`);
-            // }
-            // product.size = [...new Set([...product.size, ...update.size])];
+            if (!product) {
+                throw new BizProductsError(404, `Product not found: ${update.id}`);
+            }
+
+            // Assuming size is a single number in the product schema
+            if (product.size !== update.size) {
+                throw new BizProductsError(400, `Invalid size: ${update.size}`);
+            }
+
+            // Logging before updating
+            console.log(`Updating size ${update.size} from ${product.quantity} to ${product.quantity + update.quantity}`);
+
             product.quantity += update.quantity;
+
             await product.save();
             results.push(product);
         }

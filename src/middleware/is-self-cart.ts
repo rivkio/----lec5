@@ -31,14 +31,6 @@ const _validateAddToCart = async (req: Request, res: Response, next: NextFunctio
                 return next(new BizProductsError(403, "Cart does not belong to the user"));
             }
 
-            // Update the product quantity if it already exists in the cart
-            // const itemIndex = cart.items.findIndex((item: ICartItem) => item.productId.toString() === productId);
-            // if (itemIndex > -1) {
-            //     cart.items[itemIndex].quantity += quantity;
-            // } else {
-            //     cart.items.push({ productId, quantity });
-            // }
-
             await cart.save();
         }
 

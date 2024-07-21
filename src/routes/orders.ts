@@ -4,7 +4,6 @@ import { isSizeValid } from "../middleware/is-size";
 import { isAdmin } from "../middleware/is-admin";
 import { isAdminOrSelfUser } from "../middleware/is-admin-or-self-user";
 import _ from "underscore";
-import BizProductsError from "../errors/BizProductsError";
 
 
 const router = Router();

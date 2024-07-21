@@ -1,12 +1,10 @@
 import { Router } from "express";
 import { validateProduct } from "../middleware/joi";
 import { productService } from "../services/product-service";
-import { validateToken } from "../middleware/validate-token";
 import isProductId from "../middleware/is-product-id";
 import { isAdmin } from "../middleware/is-admin";
 import _ from "underscore";
 import upload from "../middleware/uploads";
-import productSchema from "../db/schemas/product-schema";
 
 
 
