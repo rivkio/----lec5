@@ -8,7 +8,11 @@ const productSchema = new Schema<IProduct>({
     productDescription: { type: String, required: true, minlength: 2, maxlength: 1024 },
     price: { type: Number, required: true, /* min: 0, max: 1_000_000 */ },
     color: { type: String, required: true, minlength: 2, maxlength: 50 },
-    size: { type: Number, required: true },
+    sizes: {
+        type: [String], // שינוי לסוג מערך של מספרים
+        enum: ['2', '4', '6', '8'], // ציון הערכים המותרים
+        required: true
+    },
     model: { type: String, required: true, minlength: 2, maxlength: 50 },
     image: { type: imageSchema, required: true, minlength: 2, maxlength: 1024 },
     alt: { type: String, required: true },

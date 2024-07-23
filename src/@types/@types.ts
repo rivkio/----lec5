@@ -15,7 +15,6 @@ export type IAddress = {
 
 export type IImage = {
     url: string;
-    alt: string;
 };
 
 export type IUserInput = {
@@ -70,7 +69,8 @@ export interface ICartItem {
     quantity: number;
     productName: string;
     price: number;
-    size: number;
+    size: string;
+    image: IImage;
 };
 
 export interface ICart extends Document {
@@ -78,6 +78,10 @@ export interface ICart extends Document {
     items: ICartItem[];
 };
 
+export interface ICartWithTotals extends ICart {
+    totalQuantity: number;
+    totalPrice: number;
+};
 
 export type ILogin = {
     email: string;
@@ -97,7 +101,7 @@ export type IProductInput = {
     productDescription: string;
     price: number;
     color: string;
-    size: number;
+    sizes: string[];
     model: string;
     image?: IImage;
     alt: string;
@@ -124,7 +128,7 @@ export type IIsBusiness = {
 export type IOrderProduct = {
     productId: string;
     quantity: number;
-    size: number;
+    size: string;
     productName: string;
     price: number;
     barcode: number;

@@ -114,7 +114,7 @@ export const productService = {
 
 
 
-    bulkReplenishStock: async (updates: { id: string; size: number; quantity: number }[]) => {
+    bulkReplenishStock: async (updates: { id: string; size: string; quantity: number }[]) => {
         if (!Array.isArray(updates) || updates.length === 0) {
             throw new BizProductsError(400, "Updates must be a non-empty array");
         }
@@ -134,16 +134,10 @@ export const productService = {
                 throw new BizProductsError(404, `Product not found: ${update.id}`);
             }
 
-            // Assuming size is a single number in the product schema
-            if (product.size !== update.size) {
-                throw new BizProductsError(400, `Invalid size: ${update.size}`);
-            }
+            if (![2, 4, 6, 8].includes(update.size)) throw new BizProductsError(400, `Invalid size: ${update.size}`);
 
-            // Logging before updating
-            console.log(`Updating size ${update.size} from ${product.quantity} to ${product.quantity + update.quantity}`);
-
+            product.sizes[update.size] += update.quantity;
             product.quantity += update.quantity;
-
             await product.save();
             results.push(product);
         }

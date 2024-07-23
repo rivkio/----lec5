@@ -174,7 +174,7 @@ export const analyticsService = {
         const users = await User.find({ _id: { $in: userIds } });
         // שלב 3: מיפוי התוצאות לפורמט הרצוי
         const result = orders.map(order => {
-            const user = users.find(u => u._id.equals(order._id));
+            const user = users.find(u => u._id.toString() === order._id.toString());
             return {
                 userId: order._id,
                 userName: user ? user.name : 'Unknown User',

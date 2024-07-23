@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import { ICart } from '../../@types/@types';
+import imageSchema from './image-schema';
 // import { cartItemSchema } from './cartItem-schema';
 
 
@@ -10,9 +11,7 @@ export const cartSchema = new Schema<ICart>({
         quantity: { type: Number, required: true },
         productName: { type: String, required: true },
         price: { type: Number, required: true },
-        size: { type: Number, required: true }
+        size: { type: Number, required: true },
+        image: { type: imageSchema, required: true },
     }]
 });
-
-
-

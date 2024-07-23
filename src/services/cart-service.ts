@@ -1,15 +1,30 @@
 import Product from '../db/models/product-model';
-import { ICart } from '../@types/@types';
+import { ICart, ICartWithTotals } from '../@types/@types';
 import CartModel from '../db/models/cart-model';
+import BizProductsError from '../errors/BizProductsError';
 
 
 export const cartService = {
 
 
-    getCartById: async (userId: string): Promise<ICart | null> => {
+    getCartById: async (userId: string): Promise<ICartWithTotals | null> => {
         try {
             const cart = await CartModel.findOne({ userId }).populate('items.productId');
-            return cart;
+
+            if (!cart) {
+                return null;
+            }
+            // חישוב כמות מוצרים סך הכל והמחיר של כל המוצרים יחד
+            const totalQuantity = cart.items.reduce((total, item) => total + item.quantity, 0);
+            const totalPrice = cart.items.reduce((total, item) => total + (item.quantity * item.price), 0);
+
+            // הוספת חישובים למידע המוחזר
+            return {
+                ...cart.toObject(),
+                totalQuantity,
+                totalPrice
+            } as ICartWithTotals; // שינוי טיפוס המידע המוחזר
+
         } catch (error) {
             console.error("Error fetching cart:", error); // Debugging
             throw new Error('Error fetching cart');
@@ -17,8 +32,7 @@ export const cartService = {
     },
 
 
-
-    addProductToCart: async (userId: string, productId: string, quantity: number, size: number ): Promise<ICart | null> => {
+    addProductToCart: async (userId: string, productId: string, quantity: number, size: string): Promise<ICart | null> => {
         // First, find the cart for the user
         let cart = await CartModel.findOne({ userId });
 
@@ -32,7 +46,7 @@ export const cartService = {
         if (!cart) {
             cart = new CartModel({
                 userId,
-                items: [{ productId, quantity }]
+                items: [{ productId, quantity, size: size, productName: product.productName, price: product.price, image: product.image }]
             });
         }
         // If the cart exists, check if the product already exists in the cart
@@ -46,7 +60,7 @@ export const cartService = {
 
             // If the product does not exist, add it to the cart
             else {
-                cart.items.push({ productId, quantity, size: size, productName: product.productName, price: product.price});
+                cart.items.push({ productId, quantity, size: size, productName: product.productName, price: product.price, image: product.image });
             }
         }
 
@@ -56,26 +70,35 @@ export const cartService = {
     },
 
 
-    removeProductFromCart: async (userId: string, productId: string, quantity: number): Promise<ICart | null> => {
+
+    removeProductFromCart: async (userId: string, productId: string): Promise<ICart | null> => {
+        // מצא את העגלה על פי userId
         const cart = await CartModel.findOne({ userId });
 
         if (!cart) {
-            throw new Error('Cart not found');
+            throw new BizProductsError(404, 'Cart not found');
         }
+        // סנן את המוצרים כדי להסיר את כל המוצרים עם אותו productId
+        cart.items = cart.items.filter((item) => item.productId !== productId);
 
+        await cart.save();
+        return cart;
+    },
+
+
+    //update quantity in cart
+    updateQuantityInCart: async (userId: string, productId: string, quantity: number): Promise<ICart | null> => {
+        const cart = await CartModel.findOne({ userId });
+        if (!cart) {
+            throw new BizProductsError(404, 'Cart not found');
+        }
         const itemIndex = cart.items.findIndex((item) => item.productId === productId);
-
-        if (itemIndex > -1) {
-            if (cart.items[itemIndex].quantity > quantity) {
-                cart.items[itemIndex].quantity -= quantity;
-            } else {
-                cart.items.splice(itemIndex, 1);
-            }
-            await cart.save();
-            return cart;
+        if (itemIndex === -1) {
+            throw new BizProductsError(404, 'Product not found in cart');
         }
-
-        throw new Error('Product not found in cart');
+        cart.items[itemIndex].quantity = quantity;
+        await cart.save();
+        return cart;
     },
 
 
@@ -88,9 +111,9 @@ export const cartService = {
 
         cart.items = [];
         await cart.save();
-
         return cart;
-    }
+    },
+
 
 };
 

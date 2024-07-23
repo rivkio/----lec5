@@ -34,13 +34,26 @@ router.post('/add', ...validateAddToCart, async (req, res, next) => {
 router.post('/remove', validateToken, async (req, res, next) => {
     try {
         const userId = req.payload._id;
-        const { productId, quantity } = req.body;
-        const cart = await cartService.removeProductFromCart(userId, productId, quantity);
+        const { productId } = req.body;
+        const cart = await cartService.removeProductFromCart(userId, productId);
         res.json(cart);
     } catch (e) {
         next(e);
     }
 });
+
+
+router.patch('/update', validateToken, async (req, res, next) => {
+    try {
+        const userId = req.payload._id;
+        const { productId, quantity } = req.body;
+        const cart = await cartService.updateQuantityInCart(userId, productId, quantity);
+        res.json(cart);
+    } catch (e) {
+        next(e);
+    }
+});
+
 
 router.delete('/clear', validateToken, async (req, res, next) => {
     const userId = req.payload._id;
