@@ -14,13 +14,10 @@ export const orderService = {
                 if (!productDetails) throw new  BizProductsError(400, "Product not found");
                 if (productDetails.quantity < product.quantity) 
                     throw new BizProductsError(400, "Not enough stock");
-
-                const selectedSize = product.size;
            
                 // Update product stock
                 productDetails.quantity -= product.quantity;
                 productDetails.sold += product.quantity;
-
                 await productDetails.save();
 
                 return {
@@ -29,7 +26,7 @@ export const orderService = {
                     barcode: productDetails.barcode,
                     quantity: product.quantity,
                     price: productDetails.price,
-                    size: selectedSize,
+                    size: product.size,
                 };
             }));
 
@@ -91,7 +88,6 @@ export const orderService = {
     getOrdersByUser: async (userId: string) => {
         return Order.find({ userId }).populate("products.productId");
     },
-
 
     getAllOrders: async () => {
         const orders = await Order.find(({ status: { $ne: "cancelled" } })).populate("products.productId");

@@ -4,6 +4,7 @@ import { isSizeValid } from "../middleware/is-size";
 import { isAdmin } from "../middleware/is-admin";
 import { isAdminOrSelfUser } from "../middleware/is-admin-or-self-user";
 import _ from "underscore";
+import { isAdminOrOwner } from "../middleware/isAdminOrOwner";
 
 
 const router = Router();
@@ -22,7 +23,7 @@ router.post("/", ...isSizeValid, async (req, res, next) => {
 });
 
 
-router.get("/:id", ...isAdmin, async (req, res, next) => {
+router.get('/:id', ...isAdminOrOwner, async (req, res, next) => {
     try {
         const orderId = req.params.id;
         const order = await orderService.getOrder(orderId);
@@ -30,7 +31,7 @@ router.get("/:id", ...isAdmin, async (req, res, next) => {
     } catch (e) {
         next(e);
     }
-});
+}),
 
 
 router.get("/user/:userId", ...isAdminOrSelfUser, async (req, res, next) => {
