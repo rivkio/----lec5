@@ -12,8 +12,7 @@ const addressSchema = Joi.object<IAddress>({
 });
 
 const imageSchema = Joi.object<IImage>({
-    url: Joi.string().uri().required(),
-    alt: Joi.string().min(2).max(50).required(),
+    url: Joi.string().uri(),
 });
 
 const userSchema = Joi.object<IUser>({

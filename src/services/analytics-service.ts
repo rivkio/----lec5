@@ -181,7 +181,7 @@ export const analyticsService = {
                 totalOrders: order.totalOrders,
                 totalAmount: order.totalAmount,
                 orders: order.orders.map(o => ({
-                    orderNumber: o.orderNumber,
+                    // orderNumber: o.orderNumber,
                     totalAmount: o.totalAmount,
                     products: o.products.map(p => ({
                         productId: p.productId,

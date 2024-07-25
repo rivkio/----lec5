@@ -34,11 +34,11 @@ export const orderService = {
             const totalAmount = orderProducts.reduce((acc, product) => acc + (product.quantity * product.price), 0);
 
             // Generate unique order number
-            const orderNumber = uuidv4();
+            // const orderNumber = uuidv4();
 
             // Create new order document
             const order = new Order({
-                orderNumber,
+                // orderNumber,
                 userId,
                 products: orderProducts,
                 totalAmount,
@@ -98,10 +98,7 @@ export const orderService = {
 
 };
 
-
-
-
-    
+ 
 
 
 

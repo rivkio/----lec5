@@ -8,7 +8,7 @@ const productSchema = Joi.object<IProductInput>({
     productDescription: Joi.string().min(2).max(1024).required(),
     price: Joi.number().required(),
     color: Joi.string().min(2).max(50).required(),
-    sizes: Joi.array().items(Joi.string()).required(), 
+    sizes: Joi.array().items(Joi.string().valid('2','4','6','8')).required(), 
     model: Joi.string().min(2).max(50).required(),
     image: imageSchema,
     alt: Joi.string().required().min(2).max(1024),

@@ -16,7 +16,7 @@ const ordersSchema = new Schema({
         default: "pending"
     },
     createdAt: { type: Date, default: Date.now },
-    orderNumber: { type: String, required: true },
+    // orderNumber: { type: String, required: true },
 });
 
 export default ordersSchema;
