@@ -5,8 +5,7 @@ declare global {
         interface Request {
             payload?: IJWTPayload,
             user?: IUser,
-            product?: IProduct,
-            order?: IOrder,
+            product: IProduct,
         }
     }
 }

@@ -5,12 +5,13 @@ import { isAdmin } from "../middleware/is-admin";
 import { isAdminOrSelfUser } from "../middleware/is-admin-or-self-user";
 import _ from "underscore";
 import { isAdminOrOwner } from "../middleware/isAdminOrOwner";
+import { validateToken } from "../middleware/validate-token";
 
 
 const router = Router();
 
 
-router.post("/", ...isSizeValid, async (req, res, next) => {
+router.post("/", validateToken, async (req, res, next) => {
     try {
         const userId = req.payload._id;
         const products = req.body.products;

@@ -6,17 +6,21 @@ import BizProductsError from '../errors/BizProductsError';
 
 
 export const orderService = {
-  
+
     createOrder: async (userId: string, products: IOrderProduct[]) => {
         try {
             const orderProducts = await Promise.all(products.map(async product => {
                 const productDetails = await Product.findById(product.productId);
-                if (!productDetails) throw new  BizProductsError(400, "Product not found");
-                if (productDetails.quantity < product.quantity) 
-                    throw new BizProductsError(400, "Not enough stock");
-           
+                if (!productDetails) throw new BizProductsError(400, "Product not found");
+                // if (productDetails.quantity < product.quantity) 
+                //     throw new BizProductsError(400, "Not enough stock");
+
+                const variant = productDetails.variants.find(v => v.size === product.size);
+                if (!variant) throw new BizProductsError(404, "Variant not found");
+                if (variant.quantity < product.quantity) throw new BizProductsError(400, "Not enough stock");
+
                 // Update product stock
-                productDetails.quantity -= product.quantity;
+                variant.quantity -= product.quantity;
                 productDetails.sold += product.quantity;
                 await productDetails.save();
 
@@ -25,7 +29,7 @@ export const orderService = {
                     productName: productDetails.productName,
                     barcode: productDetails.barcode,
                     quantity: product.quantity,
-                    price: productDetails.price,
+                    price: variant.price,
                     size: product.size,
                 };
             }));
@@ -33,15 +37,12 @@ export const orderService = {
             // Calculate totalAmount
             const totalAmount = orderProducts.reduce((acc, product) => acc + (product.quantity * product.price), 0);
 
-            // Generate unique order number
-            // const orderNumber = uuidv4();
-
             // Create new order document
             const order = new Order({
-                // orderNumber,
                 userId,
                 products: orderProducts,
                 totalAmount,
+                orderNumber: Date.now().toString(),
             });
 
             return await order.save();
@@ -65,7 +66,10 @@ export const orderService = {
         for (const product of order.products) {
             const productDetails = await Product.findById(product.productId);
             if (productDetails) {
-                productDetails.quantity += product.quantity;
+                const variant = productDetails.variants.find(v => v.size === product.size);
+                if (variant) {
+                    variant.quantity += product.quantity;
+                }
                 productDetails.sold -= product.quantity;
                 await productDetails.save();
             }
@@ -98,7 +102,7 @@ export const orderService = {
 
 };
 
- 
+
 
 
 

@@ -21,57 +21,40 @@ export type IUserInput = {
     email: string;
     phone: string;
     password: string;
-    // isBusiness: boolean;
     address: IAddress;
     name: IName;
-    // image?: IImage;
-    // alt: string;
 };
 
 export type IUser = IUserInput & {
     _id?: string;
     createdAt: Date;
     isAdmin: boolean;
-    cart?: [],
+    cart?: ICart[];
 };
 
-export type IUpdateUserType = {
-    name: {
-        first: string;
-        middle: string;
-        last: string;
-    };
-    phone: string;
-    // image: {
-    //     url: string;
-    //     alt: string;
-    // };
-    address: {
-        state: string;
-        country: string;
-        city: string;
-        street: string;
-        houseNumber: number;
-        zip: number;
-    };
-};
-
-// export type ICartProduct = {
-//     productId: string;
-//     productName: string;
-//     price: number;
-
-// };
-
-
-export interface ICartItem {
-    productId: string; 
+// טיפוס עבור גרסאות של מוצר
+export type IVariant = {
+    _id?: string;
+    size: string;
     quantity: number;
+    price: number;
+};
+
+// טיפוס עבור פריט בעגלת קניות
+export interface ICartItem {
+    productId: string;
+    variantId: string;
     productName: string;
     price: number;
     size: string;
+    quantity: number;
     image: IImage;
-};
+}
+
+export interface ICart {
+    userId: string;
+    items: ICartItem[];
+}
 
 export interface ICart extends Document {
     userId: string; 
@@ -91,7 +74,6 @@ export type ILogin = {
 export type IJWTPayload = {
     _id: string,
     isAdmin: boolean,
-    // isBusiness: boolean
 };
 
 
@@ -99,30 +81,31 @@ export type IProductInput = {
     productName: string;
     subtitle: string;
     productDescription: string;
-    price: number;
-    color: string;
-    sizes: string[];
-    model: string;
+    // price: number;
+    // color: string;
+    // sizes: string[];
+    // model: string;
     image?: IImage;
     alt: string;
-    category: string;
-    quantity: number;
+    // category: string;
+    // quantity: number;
+    variants: IVariant[];
 };
 
 export type IProduct = IProductInput & {
-    productId: string,
+    _id: string;
     barcode: number,
     createdAt: Date,
     shoppingCart: string[],
-    quantity: number,
+    // quantity: number,
     sold: number,
     userId: string,
 };
 
 
-export type IIsBusiness = {
-    isBusiness: boolean
-};
+// export type IIsBusiness = {
+//     isBusiness: boolean
+// };
 
 
 export type IOrderProduct = {
@@ -131,7 +114,6 @@ export type IOrderProduct = {
     size: string;
     productName: string;
     price: number;
-    barcode: number;
 };
 
 export type IOrder = {
@@ -147,6 +129,25 @@ export type IOrder = {
 export interface SalesByDateQuery {
     startDate: string;
     endDate: string;
+};
+
+
+
+export type IUpdateUserType = {
+    name: {
+        first: string;
+        middle: string;
+        last: string;
+    };
+    phone: string;
+    address: {
+        state: string;
+        country: string;
+        city: string;
+        street: string;
+        houseNumber: number;
+        zip: number;
+    };
 };
 
 

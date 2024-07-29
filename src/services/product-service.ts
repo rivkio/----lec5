@@ -122,8 +122,8 @@ export const productService = {
         const results = [];
 
         for (const update of updates) {
-            if (!update.id || typeof update.size !== 'number' || typeof update.quantity !== 'number') {
-                throw new BizProductsError(400, "Each update must include id, size, and quantity as numbers");
+            if (!update.id || !update.size || !update.quantity) {
+                throw new BizProductsError(400, "Each update must include id, size, and quantity");
             }
             if (update.quantity <= 0) {
                 throw new BizProductsError(400, "Quantity must be greater than 0");
@@ -134,13 +134,14 @@ export const productService = {
                 throw new BizProductsError(404, `Product not found: ${update.id}`);
             }
 
-            if (![2, 4, 6, 8].includes(update.size)) throw new BizProductsError(400, `Invalid size: ${update.size}`);
+            const variant = product.variants.find(v => v.size === update.size);
+            if (!variant) throw new BizProductsError(400, `Invalid size: ${update.size}`);
 
-            product.sizes[update.size] += update.quantity;
-            product.quantity += update.quantity;
+            variant.quantity += update.quantity;
             await product.save();
             results.push(product);
         }
+        
         return results;
     },
 

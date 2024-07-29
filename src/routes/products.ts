@@ -5,6 +5,7 @@ import isProductId from "../middleware/is-product-id";
 import { isAdmin } from "../middleware/is-admin";
 import _ from "underscore";
 import upload from "../middleware/uploads";
+import BizProductsError from "../errors/BizProductsError";
 
 
 
@@ -22,11 +23,11 @@ const router = Router();
 // });
 
 
-router.post("/", ...isAdmin, upload.single("image"), validateProduct, async (req, res, next) => {
+router.post("/", ...isAdmin, upload.single("image"), async (req, res, next) => {
     try {
         console.log("Payload:", req.payload); // הוספת דיבאג
         if (!req.payload) {
-            throw new Error("Invalid token");
+            throw new BizProductsError(401, "Invalid token");
         }
         const imageUrl = `http://localhost:8080/uploads/${req.file.filename}`;
         res.json({ imageUrl })
@@ -43,7 +44,7 @@ router.put("/:id", ...isAdmin, upload.single("image"), async (req, res, next) =>
     try {
         console.log("Payload:", req.payload); // הוספת דיבאג
         if (!req.payload) {
-            throw new Error("Invalid token");
+            throw new BizProductsError(401, "Invalid token");
         }
         const imageUrl = req.file ? `http://localhost:8080/uploads/${req.file.filename}` : req.body.imageUrl;
         const productData = { ...req.body, image: { url: imageUrl, alt: req.body.alt } };
@@ -70,7 +71,7 @@ router.put("/:id", ...isAdmin, upload.single("image"), async (req, res, next) =>
 
 
 
-router.delete("/:id", ...isAdmin, async (req, res, next) => {
+router.delete("/:id", ...isAdmin, isProductId, async (req, res, next) => {
     try {
         const product = await productService.deleteProduct(req.body, req.params.id);
         res.json(product);
