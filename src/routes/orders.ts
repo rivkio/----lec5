@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { orderService } from "../services/order-service";
-import { isSizeValid } from "../middleware/is-size";
 import { isAdmin } from "../middleware/is-admin";
 import { isAdminOrSelfUser } from "../middleware/is-admin-or-self-user";
 import _ from "underscore";
@@ -46,15 +45,15 @@ router.get("/user/:userId", ...isAdminOrSelfUser, async (req, res, next) => {
 });
 
 
-router.get("/", ...isAdmin, async (_, res, next) => {
-    try {
-        const { orders, count } = await orderService.getAllOrders();
-        const response = { AmountsOrders: count, orders }
-        res.json(response);
-    } catch (e) {
-        next(e);
-    }
-});
+// router.get("/", ...isAdmin, async (_, res, next) => {
+//     try {
+//         const { orders, count } = await orderService.getAllOrders();
+//         const response = { AmountsOrders: count, orders }
+//         res.json(response);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 
 router.patch("/cancel/:orderId", ...isAdmin, async (req, res, next) => {

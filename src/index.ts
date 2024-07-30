@@ -8,7 +8,7 @@ import morgan from "morgan";
 import { productRouter } from "./routes/products";
 import cors from "cors";
 import { ordersRouter } from "./routes/orders";
-// import { analyticsRouter } from "./routes/analytics";
+import { analyticsRouter } from "./routes/analytics";
 import { cartRouter } from "./routes/cart-router";
 
 configDevEnv();
@@ -25,7 +25,7 @@ app.use(cors({ origin: "*" }));
 //http://localhost:8080/api/v1/users
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/products", productRouter);
-// app.use("/api/v1/analytics", analyticsRouter);
+app.use("/api/v1/analytics", analyticsRouter);
 app.use("/api/v1/orders", ordersRouter);
 app.use("/api/v1/cart", cartRouter); 
 app.use(express.static("public"));

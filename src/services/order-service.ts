@@ -42,7 +42,7 @@ export const orderService = {
                 userId,
                 products: orderProducts,
                 totalAmount,
-                orderNumber: Date.now().toString(),
+                orderNumber: `ORD-${Date.now().toString()}`
             });
 
             return await order.save();
@@ -93,11 +93,11 @@ export const orderService = {
         return Order.find({ userId }).populate("products.productId");
     },
 
-    getAllOrders: async () => {
-        const orders = await Order.find(({ status: { $ne: "cancelled" } })).populate("products.productId");
-        const count = await Order.countDocuments({ status: { $ne: "cancelled" } });
-        return { orders: orders.map(order => order.toObject()), count };
-    },
+    // getAllOrders: async () => {
+    //     const orders = await Order.find(({ status: { $ne: "cancelled" } })).populate("products.productId");
+    //     const count = await Order.countDocuments({ status: { $ne: "cancelled" } });
+    //     return { orders: orders.map(order => order.toObject()), count };
+    // },
 
 
 };
