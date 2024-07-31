@@ -42,7 +42,7 @@ const router = Router();
 
 
 
-router.get("/sales-by-date", ...isAdmin, async (req, res, next) => {
+router.get("/analytics", ...isAdmin, async (req, res, next) => {
     try {
         const { startDate, endDate } = req.query;
 

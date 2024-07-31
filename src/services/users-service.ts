@@ -10,10 +10,6 @@ export const usersService = {
         return User.findOneAndUpdate({ _id: id }, data, { new: true });
     },
 
-    patchUser: async (data: IUserInput, id: string) => {
-        return User.findOneAndUpdate({ _id: id }, data, { new: true });
-    },
-
     createUser: async (data: IUserInput) => {
         const user = new User(data);
         //replace the password with it's hash

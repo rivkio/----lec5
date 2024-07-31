@@ -151,3 +151,11 @@ export type IUpdateUserType = {
 };
 
 
+export type IMessage = {
+    fullName: string;
+    email: string;
+    message: string;
+    createdAt?: Date;
+}
+
+

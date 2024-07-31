@@ -30,7 +30,7 @@ export const orderService = {
                     barcode: productDetails.barcode,
                     quantity: product.quantity,
                     price: variant.price,
-                    size: product.size,
+                    size: variant.size,
                 };
             }));
 

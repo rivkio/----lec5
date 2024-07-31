@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { usersService } from "../services/users-service";
-import { validateBusiness, validateLogin, validateUpdateUser, validateUser } from "../middleware/joi";
+import { validateLogin, validateUpdateUser, validateUser } from "../middleware/joi";
 import { isAdmin } from "../middleware/is-admin";
 import { isAdminOrSelf } from "../middleware/is-admin-or-self";
 import { isSelf } from "../middleware/is-self";
@@ -13,15 +13,6 @@ const router = Router();
 router.put("/:id", ...isSelf, validateUpdateUser, async (req, res, next) => {
   try {
     const saved = await usersService.updateUser(req.body, req.payload._id);
-    res.json(saved);
-  } catch (e) {
-    next(e);
-  }
-});
-
-router.patch("/:id", ...isSelf, validateBusiness, async (req, res, next) => {
-  try {
-    const saved = await usersService.patchUser(req.body, req.payload._id);
     res.json(saved);
   } catch (e) {
     next(e);

@@ -10,6 +10,7 @@ import cors from "cors";
 import { ordersRouter } from "./routes/orders";
 import { analyticsRouter } from "./routes/analytics";
 import { cartRouter } from "./routes/cart-router";
+import { messageRouter } from "./routes/message-router";
 
 configDevEnv();
 connect();
@@ -27,6 +28,7 @@ app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/analytics", analyticsRouter);
 app.use("/api/v1/orders", ordersRouter);
+app.use("/api/v1/messages", messageRouter);
 app.use("/api/v1/cart", cartRouter); 
 app.use(express.static("public"));
 app.use(errorHandler);

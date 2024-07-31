@@ -152,6 +152,7 @@ export const analyticsService = {
                     barcode: product.barcode, // שימוש ב- productId כדי לקבל את ה-barcode
                     quantity: product.quantity,
                     price: product.price,
+                    size: product.size,
                 })),
                 totalAmount: order.totalAmount,
                 status: order.status,
