@@ -71,7 +71,7 @@ const products: IProductInput[] = [
         subtitle: "Versatile and stylish blue jeans",
         productDescription: "Timeless slim-fit blue jeans made from durable denim. Features button and zipper closure. Perfect for everyday wear.",
         image: {
-            url: "http://localhost:8080/uploads/11.png",
+            url: "https://final-project-shop.onrender.com/uploads/11.png",
         },
         alt: "Classic Blue Jeans",
         variants: [
@@ -86,7 +86,7 @@ const products: IProductInput[] = [
         subtitle: "Classic checked pattern shirt",
         productDescription: "A timeless checked button-up shirt made from soft, durable fabric. Ideal for casual and smart-casual looks.",
         image: {
-            url: "http://localhost:8080/uploads/6.png",
+            url: "https://final-project-shop.onrender.com/uploads/6.png",
         },
         alt: "Checked Button-Up Shirt",
         variants: [
@@ -101,7 +101,7 @@ const products: IProductInput[] = [
         subtitle: "Stylish dress for special occasions",
         productDescription: "Elegant girls' dress with a round neckline and flared skirt, made from soft jersey fabric. Perfect for formal events..",
         image: {
-            url: "http://localhost:8080/uploads/8.png",
+            url: "https://final-project-shop.onrender.com/uploads/8.png",
         },
         alt: "Girls' Elegant Dress",
         variants: [
@@ -116,7 +116,7 @@ const products: IProductInput[] = [
         subtitle: "Comfortable and stylish long sleeves top",
         productDescription: "This cozy long sleeve top is made from soft, breathable fabric,  making it a versatile wearing on its own. Perfect for cooler weather.",
         image: {
-            url: "http://localhost:8080/uploads/13.png",
+            url: "https://final-project-shop.onrender.com/uploads/13.png",
         },
         alt: "Long Sleeve Cozy Top",
         variants: [
@@ -131,7 +131,7 @@ const products: IProductInput[] = [
         subtitle: "Stylish top with elegant flared sleeves",
         productDescription: "Chic top with flared sleeves and a relaxed fit. Made from breathable fabric, perfect for casual occasions. Available in various sizes.",
         image: {
-            url: "http://localhost:8080/uploads/15.png",
+            url: "https://final-project-shop.onrender.com/uploads/15.png",
         },
         alt: "Chic Flared Sleeve Top",
         variants: [
@@ -146,7 +146,7 @@ const products: IProductInput[] = [
         subtitle: "Chic and durable denim dress for girls",
         productDescription: "Stylish denim dress with short sleeves, and an adjustable belt. Made from high-quality denim fabric, suitable for everyday wear.",
         image: {
-            url: "http://localhost:8080/uploads/7.png",
+            url: "https://final-project-shop.onrender.com/uploads/7.png",
         },
         alt: "Girls' Denim Dress",
         variants: [
@@ -161,7 +161,7 @@ const products: IProductInput[] = [
         subtitle: "Light and comfortable summer dress",
         productDescription: "Summer dress made of 100% cotton with a colorful floral print, long sleeves, and an A-line silhouette. Features a back button closure.",
         image: {
-            url: "http://localhost:8080/uploads/12.png",
+            url: "https://final-project-shop.onrender.com/uploads/12.png",
         },
         alt: "Floral Summer Dress",
         variants: [
@@ -176,7 +176,7 @@ const products: IProductInput[] = [
         subtitle: "Comfortable and stylish collared shirt",
         productDescription: "Breathable cotton collared shirt for kids. Perfect for casual and formal occasions. Available in various sizes.",
         image: {
-            url: "http://localhost:8080/uploads/16.png",
+            url: "https://final-project-shop.onrender.com/uploads/16.png",
         },
         alt: "Kids' Collared Shirt",
         variants: [
@@ -191,7 +191,7 @@ const products: IProductInput[] = [
         subtitle: "Basic white tee",
         productDescription: "Comfortable and versatile white t-shirt with short sleeves. Made from soft, breathable cotton. Perfect for everyday wear.",
         image: {
-            url: "http://localhost:8080/uploads/10.png",
+            url: "https://final-project-shop.onrender.com/uploads/10.png",
         },
         alt: "Simple White T-Shirt",
         variants: [
