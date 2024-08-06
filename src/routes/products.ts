@@ -29,7 +29,7 @@ router.post("/", ...isAdmin, upload.single("image"), async (req, res, next) => {
         if (!req.payload) {
             throw new BizProductsError(401, "Invalid token");
         }
-        const imageUrl = `http://localhost:8080/uploads/${req.file.filename}`;
+        const imageUrl = `https://apinodeproject-2.onrender.com/uploads/${req.file.filename}`;
         res.json({ imageUrl })
         const productData = { ...req.body, image: { url: imageUrl, alt: req.body.alt } };
         const result = await productService.createProduct(productData, req.payload._id);
