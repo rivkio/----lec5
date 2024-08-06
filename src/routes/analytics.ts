@@ -98,7 +98,8 @@ router.get("/all-orders", ...isAdmin, async (req, res, next) => {
         const orders = await analyticsService.getAllOrders();
         res.json(orders);
     } catch (e) {
-        next(e);
+        console.error("Error fetching orders:", e);
+        res.status(500).json({ error: e.message });
     }
 });
 
