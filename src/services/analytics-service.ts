@@ -134,10 +134,7 @@ export const analyticsService = {
 
     // get all orders
     getAllOrders: async () => {
-        const orders = await Order.find().populate({
-            path: 'userId',
-            select: 'name', // אכלוס השדה name מתוך userId
-        }).populate('products.productId');
+        const orders = await Order.find().populate('products.productId');
 
         const count = await Order.countDocuments(); // ספירת כמות ההזמנות
 
@@ -145,7 +142,7 @@ export const analyticsService = {
             orders: orders.map(order => ({
                 orderId: order._id,
                 orderNumber: order.orderNumber,
-                userId: order.userId._id, // הוספת השדה name של המשתמש
+                userName: order.userName, // הוספת השדה name של המשתמש
                 products: order.products.map(product => ({
                     productId: product.productId._id,
                     productName: product.productName, // שימוש ב- productId כדי לקבל את ה-title

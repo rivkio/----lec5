@@ -117,7 +117,7 @@ export type IOrderProduct = {
 };
 
 export type IOrder = {
-    userId: string;
+    userName
     products: IOrderProduct[];
     totalAmount: number;
     status: string;

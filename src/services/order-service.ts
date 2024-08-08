@@ -3,12 +3,19 @@ import { IOrderProduct } from "../@types/@types";
 import Order from "../db/models/orders-model";
 import Product from "../db/models/product-model";
 import BizProductsError from '../errors/BizProductsError';
+import User from '../db/models/user-model';
 
 
 export const orderService = {
 
+
+    // Create order
     createOrder: async (userId: string, products: IOrderProduct[]) => {
         try {
+            // Fetch the user details
+            const user = await User.findById(userId);
+            if (!user) throw new BizProductsError(404, "User not found");
+
             const orderProducts = await Promise.all(products.map(async product => {
                 const productDetails = await Product.findById(product.productId);
                 if (!productDetails) throw new BizProductsError(400, "Product not found");
@@ -37,9 +44,10 @@ export const orderService = {
             // Calculate totalAmount
             const totalAmount = orderProducts.reduce((acc, product) => acc + (product.quantity * product.price), 0);
 
-            // Create new order document
+            // Create the order with user's name
             const order = new Order({
                 userId,
+                userName: `${User.name.first} ${User.name.middle || ''} ${User.name.last}`, // Format the user's name
                 products: orderProducts,
                 totalAmount,
                 orderNumber: `ORD-${Date.now().toString()}`
@@ -53,7 +61,7 @@ export const orderService = {
     },
 
 
-
+    // Cancel order
     cancelOrder: async (orderId: string) => {
         const order = await Order.findById(orderId);
         if (!order) throw new BizProductsError(400, "Order not found");
@@ -81,7 +89,7 @@ export const orderService = {
 
 
 
-
+    // Get order
     getOrder: async (orderId: string) => {
         const order = await Order.findById(orderId).populate("products.productId");
         if (!order) throw new BizProductsError(400, "Order not found");
@@ -89,14 +97,22 @@ export const orderService = {
     },
 
 
+    // Get orders by user
     getOrdersByUser: async (userId: string) => {
         return Order.find({ userId }).populate("products.productId");
     },
 
+
+    // Get all orders
     // getAllOrders: async () => {
     //     const orders = await Order.find(({ status: { $ne: "cancelled" } })).populate("products.productId");
     //     const count = await Order.countDocuments({ status: { $ne: "cancelled" } });
-    //     return { orders: orders.map(order => order.toObject()), count };
+    //     return {
+    //         orders: orders.map(order => ({
+    //             ...order.toObject(),
+    //             userName: order.userName, // Assuming userName is included in the Order schema
+    //         })), count
+    //     };
     // },
 
 

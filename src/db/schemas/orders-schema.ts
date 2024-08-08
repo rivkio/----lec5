@@ -3,6 +3,7 @@ import { Schema } from "mongoose";
 
 const ordersSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    userName: { type: String, required: true }, // Replace userId with userName
     products: [{
         productName: { type: String, required: true },
         productId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
